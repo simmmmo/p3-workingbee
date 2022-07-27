@@ -1,5 +1,8 @@
 const { Schema, model } = require('mongoose');
 
+const User = require('./User');
+const Task = require('./Task');
+
 const donationSchema = new Schema(
   {
     taskId: [

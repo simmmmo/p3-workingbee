@@ -1,7 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-
-const Order = require('./Order');
+const dateFormat = require('../utils/dateFormat');
 
 const userSchema = new Schema({
   firstName: {
@@ -28,9 +27,9 @@ const userSchema = new Schema({
   dateOfJoin: {
     type: Date,
     default: Date.now,
-    // get: (timestamp) => dateFormat(timestamp),
+    get: (timestamp) => dateFormat(timestamp),
   },
-  profileDescription: {
+  description: {
     type: String,
     trim: true,
   },
@@ -39,19 +38,7 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
-  events: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Event'
-    },
-  ],
-  donations: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Donation'
-    }
-  ]
-  },
+ },
 );
 
 const User = model('User', userSchema);

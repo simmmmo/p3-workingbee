@@ -1,5 +1,7 @@
 const { Schema, model } = require('mongoose');
 
+const Event = require('./Event');
+
 const taskSchema = new Schema(
   {
     eventId: [
@@ -8,12 +10,12 @@ const taskSchema = new Schema(
         ref: 'Event',
       },
     ],
-    taskTitle: {
+    title: {
       type: String,
       required: true,
       trim: true,
     },
-    taskDescription: {
+    description: {
       type: String,
       trim: true,
     },
