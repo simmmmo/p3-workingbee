@@ -19,6 +19,7 @@ node_modules/
 .env.development.local
 .env.test.local
 .env.production.local
+*.pem
 
 # Logs
 logs
@@ -99,6 +100,9 @@ typings/
 
 # Next.js build output
 .next
+
+# vercel
+.vercel
 
 # Nuxt.js build / generate output
 .nuxt

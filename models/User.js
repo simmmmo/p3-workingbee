@@ -1,33 +1,30 @@
-const { Schema, model } = require('mongoose');
+import mongoose from 'mongoose'
 
-const dateFormat = require('../utils/dateFormat');
-
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
-    required: true,
+    required: [true, 'Please provide your first name.'],
     trim: true,
   },
   lastName: {
     type: String,
-    required: true,
+    required: [true, 'Please provide your last name.'],
     trim: true,
   },
   phone: {
     type: String,
-    required: true,
+    required: [true, 'Please provide your phone number.'],
     unique: true,
   },     
   email: {
     type: String,
-    required: true,
+    required: [true, 'Please provide your phone email.'],
     unique: true,
     match: [/.+@.+\..+/, 'Must use a valid email address'],
   },
   dateOfJoin: {
     type: Date,
-    default: Date.now,
-    get: (timestamp) => dateFormat(timestamp),
+    default: Date(),
   },
   description: {
     type: String,
@@ -41,6 +38,4 @@ const userSchema = new Schema({
  },
 );
 
-const User = model('User', userSchema);
-
-module.exports = User;
+export default mongoose.models.User || mongoose.model('User', userSchema)
