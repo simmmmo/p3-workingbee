@@ -1,12 +1,11 @@
 /* This example requires Tailwind CSS v2.0+ */
 const navigation = {
   main: [
+    { name: 'Home', href: '#' },
+    { name: 'Explore', href: '#' },
+    { name: 'Create', href: '#' },
     { name: 'About', href: '#' },
-    { name: 'Blog', href: '#' },
-    { name: 'Jobs', href: '#' },
-    { name: 'Press', href: '#' },
-    { name: 'Accessibility', href: '#' },
-    { name: 'Partners', href: '#' },
+    { name: 'Contact', href: '#' },
   ],
   social: [
     {
@@ -94,7 +93,7 @@ export default function Footer() {
             </a>
           ))}
         </div>
-        <p className="mt-8 text-center text-base text-gray-400">&copy; 2020 Workflow, Inc. All rights reserved.</p>
+        <p className="mt-8 text-center text-base text-gray-400">&copy; 2022 WorkingBee, Inc. All rights reserved.</p>
       </div>
     </footer>
   )
