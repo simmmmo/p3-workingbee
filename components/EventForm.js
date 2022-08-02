@@ -58,7 +58,7 @@ async function handlePlaceSelect(updateQuery) {
   console.log(queryName);
   console.log(queryLng);
   console.log(queryLat);
-  console.log(queryPostcode);
+  // console.log(queryPostcode);
 }
 
 const Wrapper = ({ children }) => (
