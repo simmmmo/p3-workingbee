@@ -1,17 +1,12 @@
-import Link from 'next/link'
 import dbConnect from '../lib/dbConnect'
 import Pet from '../models/Pet'
-
+import Hero from '../components/Hero';
 import EventList from '../components/EventList';
 
 const Index = ({ pets }) => (
   <>
-  <EventList />
-      <h1 className="text-3xl font-bold underline">
-      Testing tailwindcss
-       </h1>
-  
-
+    <Hero />
+    <EventList />
   </>
 )
 
