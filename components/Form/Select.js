@@ -1,7 +1,7 @@
 import React from 'react';
 import FormLabel from './Label';
 
-const SelectField = ({ name, label, onChange, type, value, width }) => (
+const SelectField = ({ children, name, label, onChange, type, value, width }) => (
   <div className={width}>
     <FormLabel name={name} label={label} />
     <div className="mt-1">
@@ -13,9 +13,7 @@ const SelectField = ({ name, label, onChange, type, value, width }) => (
         value={value}
         className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
         >
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
+       { children }
       </select>
     </div>
   </div>

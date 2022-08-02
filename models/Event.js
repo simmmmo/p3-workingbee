@@ -1,11 +1,15 @@
-const { Schema, model } = require('mongoose');
+import mongoose from 'mongoose'
 
 const User = require('./User');
 const Category = require('./Category');
 
-const eventSchema = new Schema(
-  {
+const eventSchema = new mongoose.Schema({
     title: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    subTitle: {
       type: String,
       required: true,
       trim: true,
@@ -43,18 +47,6 @@ const eventSchema = new Schema(
           trim: true,
         },
         address: {
-          type: String,
-          trim: true,
-        },
-        address1: {
-          type: String,
-          trim: true,
-        },
-        address2: {
-          type: String,
-          trim: true,
-        },
-        address3: {
           type: String,
           trim: true,
         },
@@ -97,6 +89,4 @@ const eventSchema = new Schema(
   }
 );
 
-const Event = model('Event', eventSchema);
-
-module.exports = Event;
+export default mongoose.models.Event || mongoose.model('Event', eventSchema)

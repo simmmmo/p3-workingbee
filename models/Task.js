@@ -1,9 +1,8 @@
-const { Schema, model } = require('mongoose');
+import mongoose from 'mongoose'
 
 const Event = require('./Event');
 
-const taskSchema = new Schema(
-  {
+const taskSchema = new mongoose.Schema({
     eventId: [
       {
         type: Schema.Types.ObjectId,
@@ -26,6 +25,4 @@ const taskSchema = new Schema(
   }
 );
 
-const Task = model('Task', taskSchema);
-
-module.exports = Task;
+export default mongoose.models.Task || mongoose.model('Task', taskSchema)

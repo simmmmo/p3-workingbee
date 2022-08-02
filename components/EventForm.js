@@ -1,17 +1,14 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import Input from './Form/Input';
-// import Search from './Form/Search';
 import Select from './Form/Select';
 import TextArea from './Form/TextArea';
-// import FormHeader from './Form/Header';
 import Form from './Form/Form';
-// import FormSubHeader from './Form/SubHeader';
 import FormLabel from './Form/Label';
-// import TaskForm from './TaskForm';
 import UploadImage from './Form/UploadImage';
 import FieldContainer from './Form/Container';
-// import Divider from './Form/Divider';
 import FieldSetContainer from './Form/FieldSetContainer';
+import categoryData from '../data/categoryData';
+
 
 let autoComplete;
 
@@ -39,7 +36,7 @@ function handleScriptLoad(updateQuery, autoCompleteRef) {
     autoCompleteRef.current,
     {componentRestrictions: { country: "au" } }
   );
-  autoComplete.setFields(["address_components", "formatted_address"]);
+  autoComplete.setFields(["address_components", "formatted_address", "geometry", "name", "url"]);
   autoComplete.addListener("place_changed", () =>
     handlePlaceSelect(updateQuery)
   );
@@ -48,10 +45,21 @@ function handleScriptLoad(updateQuery, autoCompleteRef) {
 async function handlePlaceSelect(updateQuery) {
   const addressObject = autoComplete.getPlace();
   const query = addressObject.formatted_address;
-  updateQuery(query);
-  console.log(addressObject);
-}
+  const queryName = addressObject.name;
+  const queryLng = addressObject.geometry.location.lng();
+  const queryLat = addressObject.geometry.location.lat();
+  const queryUrl = addressObject.url;
+  // const queryPostcode = addressObject.address_components.long_name.postcode;
 
+  updateQuery(query);
+
+  console.log(addressObject);
+  console.log(queryUrl);
+  console.log(queryName);
+  console.log(queryLng);
+  console.log(queryLat);
+  console.log(queryPostcode);
+}
 
 const Wrapper = ({ children }) => (
   <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-xl">
@@ -75,6 +83,7 @@ export default function EventForm () {
 
   const [form, setForm] = useState({
     title: '',
+    subTitle: '',
     organisationName: '',
     category: '',
     date: '',
@@ -85,9 +94,6 @@ export default function EventForm () {
     locationSearch: '',
     locationName: '',
     locationAddress: '',
-    locationAddress1: '',
-    locationAddress2: '',
-    locationAddress3: '',
     locationSuburb: '',
     locationCountry: '',
     locationPostcode: '',
@@ -130,6 +136,14 @@ export default function EventForm () {
             value={form.title} 
             width="sm:col-span-6"
           />
+         <Input 
+            type="text" 
+            name="subTitle" 
+            label="Sub Title" 
+            onChange={handleChange} 
+            value={form.subTitle} 
+            width="sm:col-span-6"
+          />
           <Input 
             type="text" 
             name="organisation" 
@@ -145,7 +159,11 @@ export default function EventForm () {
             onChange={handleChange} 
             value={form.category} 
             width="sm:col-span-6"
-          />
+          >
+            {categoryData.map((cat) => (
+              <option key={cat.title}>{cat.title}</option>
+            ))}
+            </Select>
           <Input 
             type="date" 
             name="date" 
@@ -234,65 +252,44 @@ export default function EventForm () {
               width="sm:col-span-6"
             />
 
-            <div className='hidden'>
-             <Input 
-              type="hidden" 
-              name="locationAddress1" 
-              label="locationAddress1" 
-              onChange={handleChange} 
-              value={form.locationAddress1} 
-             />
+            <div >
               <Input 
-                type="hidden" 
-                name="locationAddress2" 
-                label="locationAddress2" 
-                nChange={handleChange} 
-                value={form.locationAddress2} 
-              />
-              <Input 
-              type="hidden" 
-                name="locationAddress3" 
-                label="locationAddress3" 
-                onChange={handleChange} 
-                value={form.locationAddress3} 
-              />
-              <Input 
-                type="hidden" 
+                type="text" 
                 name="locationSuburb" 
                 label="locationSuburb" 
                 onChange={handleChange} 
                 value={form.locationSuburb} 
               />
               <Input 
-                type="hidden" 
+                type="text" 
                 name="locationCountry" 
                 label="locationCountry" 
                 onChange={handleChange} 
                 value={form.locationCountry} 
               />
               <Input 
-                type="hidden" 
+                type="text" 
                 name="locationPostcode" 
                 label="locationPostcode" 
                 onChange={handleChange} 
                 value={form.locationPostcode} 
               />
               <Input 
-                type="hidden" 
+                type="text" 
                 name="locationLat" 
                 label="locationLat" 
                 onChange={handleChange} 
                 value={form.locationLat} 
               />
               <Input 
-                type="hidden" 
-                name="locationLong" 
+                type="text" 
+                name="locationLong"
                 label="locationLong" 
                 onChange={handleChange} 
                 value={form.locationLong} 
               />
               <Input 
-                type="hidden" 
+                type="text" 
                 name="locationUrl" 
                 label="locationUrl" 
                 onChange={handleChange} 
@@ -327,8 +324,6 @@ export default function EventForm () {
                 width="sm:col-span-6"
               />
          </FieldSetContainer>
-  
-
       <div className="pt-5">
         <div className="flex justify-end">
           <button
@@ -349,4 +344,3 @@ export default function EventForm () {
     </Wrapper>
   )
 }
-console.log()

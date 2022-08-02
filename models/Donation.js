@@ -1,10 +1,9 @@
-const { Schema, model } = require('mongoose');
+import mongoose from 'mongoose'
 
 const User = require('./User');
 const Task = require('./Task');
 
-const donationSchema = new Schema(
-  {
+const donationSchema = new mongoose.Schema({
     taskId: [
       {
         type: Schema.Types.ObjectId,
@@ -25,6 +24,4 @@ const donationSchema = new Schema(
   }
 );
 
-const Donation = model('Donation', donationSchema);
-
-module.exports = Donation;
+export default mongoose.models.Donation || mongoose.model('Donation', donationSchema)
