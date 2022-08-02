@@ -10,7 +10,7 @@ const eventSchema = new Schema(
       required: true,
       trim: true,
     },
-    subTitle: {
+    organisation: {
       type: String,
       trim: true,
     },
@@ -42,6 +42,10 @@ const eventSchema = new Schema(
           type: String,
           trim: true,
         },
+        address: {
+          type: String,
+          trim: true,
+        },
         address1: {
           type: String,
           trim: true,
@@ -58,6 +62,10 @@ const eventSchema = new Schema(
           type: String,
           trim: true,
         },
+        postcode: {
+          type: String,
+          trim: true,
+        },
         country: {
           type: String,
           trim: true,
@@ -70,7 +78,7 @@ const eventSchema = new Schema(
           type: String,
           trim: true,
         },
-        link: {
+        url: {
           type: String,
           trim: true,
         },
