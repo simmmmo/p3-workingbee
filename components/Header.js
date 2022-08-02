@@ -37,10 +37,10 @@ export default function Header() {
               Sign in
             </a>
             <a
-              href="signup"
+              href="join"
               className="inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-indigo-600 hover:bg-indigo-50"
             >
-              Sign up
+              Join
             </a>
           </div>
         </div>

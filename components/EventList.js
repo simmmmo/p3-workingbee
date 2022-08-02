@@ -1,57 +1,118 @@
 const posts = [
   {
-    title: 'Boost your conversion rate',
+    title: 'WorkingBee Title',
     href: '#',
-    category: { name: 'Article', href: '#' },
+    category: { name: 'Animal', href: '#' },
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto accusantium praesentium eius, ut atque fuga culpa, similique sequi cum eos quis dolorum.',
     date: 'Mar 16, 2020',
     datetime: '2020-03-16',
     imageUrl:
-      'https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80',
-    readingTime: '6 min',
-    author: {
-      name: 'Roel Aufderehar',
+      'https://s3.ap-southeast-2.amazonaws.com/testenv.com.au/bootcamp/working-bee/working-bee-gardening-placeholder.jpg',
+    readingTime: '11.30am',
+      author: {
+      name: 'RSPCA',
       href: '#',
       imageUrl:
-        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+        'https://s3.ap-southeast-2.amazonaws.com/testenv.com.au/bootcamp/working-bee/working-bee-icon-placeholder.jpg',
     },
   },
   {
-    title: 'How to use search engine optimization to drive sales',
+    title: 'WorkingBee Title',
     href: '#',
-    category: { name: 'Video', href: '#' },
+    category: { name: 'Education', href: '#' },
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit facilis asperiores porro quaerat doloribus, eveniet dolore. Adipisci tempora aut inventore optio animi., tempore temporibus quo laudantium.',
     date: 'Mar 10, 2020',
     datetime: '2020-03-10',
     imageUrl:
-      'https://images.unsplash.com/photo-1547586696-ea22b4d4235d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80',
-    readingTime: '4 min',
+      'https://s3.ap-southeast-2.amazonaws.com/testenv.com.au/bootcamp/working-bee/working-bee-gardening-placeholder.jpg',
+    readingTime: '11.30am',
     author: {
-      name: 'Brenna Goyette',
+      name: 'Surreyhill Primary',
       href: '#',
       imageUrl:
-        'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+        'https://s3.ap-southeast-2.amazonaws.com/testenv.com.au/bootcamp/working-bee/working-bee-icon-placeholder.jpg',
     },
   },
   {
     title: 'Improve your customer experience',
     href: '#',
-    category: { name: 'Case Study', href: '#' },
+    category: { name: 'Emergency', href: '#' },
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint harum rerum voluptatem quo recusandae magni placeat saepe molestiae, sed excepturi cumque corporis perferendis hic.',
     date: 'Feb 12, 2020',
     datetime: '2020-02-12',
     imageUrl:
-      'https://images.unsplash.com/photo-1492724441997-5dc865305da7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80',
-    readingTime: '11 min',
+      'https://s3.ap-southeast-2.amazonaws.com/testenv.com.au/bootcamp/working-bee/working-bee-gardening-placeholder.jpg',
+    readingTime: '11.30am',
     author: {
-      name: 'Daniela Metz',
+      name: 'Covid Relief',
       href: '#',
       imageUrl:
-        'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+      'https://s3.ap-southeast-2.amazonaws.com/testenv.com.au/bootcamp/working-bee/working-bee-icon-placeholder.jpg',
     },
+  },
+  {
+    title: 'Boost your conversion rate',
+    href: '#',
+    category: { name: 'Sporting', href: '#' },
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto accusantium praesentium eius, ut atque fuga culpa, similique sequi cum eos quis dolorum.',
+    date: 'Mar 16, 2020',
+    datetime: '2020-03-16',
+    imageUrl:
+      'https://s3.ap-southeast-2.amazonaws.com/testenv.com.au/bootcamp/working-bee/working-bee-gardening-placeholder.jpg',
+    readingTime: '6 min',
+    author: {
+      name: 'Under 12s Football club',
+      href: '#',
+      imageUrl:
+        'https://s3.ap-southeast-2.amazonaws.com/testenv.com.au/bootcamp/working-bee/working-bee-icon-placeholder.jpg',
+    },
+  },
+  {
+    title: 'WorkingBee Title',
+    href: '#',
+    category: { name: 'Other', href: '#' },
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit facilis asperiores porro quaerat doloribus, eveniet dolore. Adipisci tempora aut inventore optio animi., tempore temporibus quo laudantium.',
+    date: 'Mar 10, 2020',
+    datetime: '2020-03-10',
+    imageUrl:
+      'https://s3.ap-southeast-2.amazonaws.com/testenv.com.au/bootcamp/working-bee/working-bee-gardening-placeholder.jpg',
+    readingTime: '11.30am',
+    author: {
+      name: 'Yarra Clean up',
+      href: '#',
+      imageUrl:
+        'https://s3.ap-southeast-2.amazonaws.com/testenv.com.au/bootcamp/working-bee/working-bee-icon-placeholder.jpg',
+    },
+  },
+  {
+    title: 'WorkingBee Title',
+    href: '#',
+    category: { name: 'Nonprofits & Charities', href: '#' },
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint harum rerum voluptatem quo recusandae magni placeat saepe molestiae, sed excepturi cumque corporis perferendis hic.',
+    date: 'Feb 12, 2020',
+    datetime: '2020-02-12',
+    imageUrl:
+      'https://s3.ap-southeast-2.amazonaws.com/testenv.com.au/bootcamp/working-bee/working-bee-gardening-placeholder.jpg',
+    readingTime: '11.30am',
+    author: {
+      name: 'Womens Refuge',
+      href: '#',
+      imageUrl:
+        'https://s3.ap-southeast-2.amazonaws.com/testenv.com.au/bootcamp/working-bee/working-bee-icon-placeholder.jpg',
+    },
+  },
+]
+
+const pageContent = [
+  {
+    title: 'Latest Community Events',
+    intro: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa libero labore natus atque, ducimus sed.',
   },
 ]
 
@@ -63,9 +124,9 @@ export default function EventList() {
       </div>
       <div className="relative max-w-7xl mx-auto">
         <div className="text-center">
-          <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl">From the blog</h2>
+          <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl">Latest Community Events</h2>
           <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500 sm:mt-4">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa libero labore natus atque, ducimus sed.
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa libero labore natus atque, ducimus sed.
           </p>
         </div>
         <div className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none">
@@ -102,7 +163,7 @@ export default function EventList() {
                     <div className="flex space-x-1 text-sm text-gray-500">
                       <time dateTime={post.datetime}>{post.date}</time>
                       <span aria-hidden="true">&middot;</span>
-                      <span>{post.readingTime} read</span>
+                      <span>{post.readingTime}</span>
                     </div>
                   </div>
                 </div>
