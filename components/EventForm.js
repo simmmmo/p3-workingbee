@@ -1,4 +1,8 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react';
+import { usePlacesWidget } from 'react-google-autocomplete';
+import { useRouter } from 'next/router'
+import { mutate } from 'swr'
+
 import Input from './Form/Input';
 import Select from './Form/Select';
 import TextArea from './Form/TextArea';
@@ -9,58 +13,6 @@ import FieldContainer from './Form/Container';
 import FieldSetContainer from './Form/FieldSetContainer';
 import categoryData from '../data/categoryData';
 
-
-let autoComplete;
-
-const loadScript = (url, callback) => {
-  let script = document.createElement("script");
-  script.type = "text/javascript";
-
-  if (script.readyState) {
-    script.onreadystatechange = function() {
-      if (script.readyState === "loaded" || script.readyState === "complete") {
-        script.onreadystatechange = null;
-        callback();
-      }
-    };
-  } else {
-    script.onload = () => callback();
-  }
-
-  script.src = url;
-  document.getElementsByTagName("head")[0].appendChild(script);
-};
-
-function handleScriptLoad(updateQuery, autoCompleteRef) {
-  autoComplete = new window.google.maps.places.Autocomplete(
-    autoCompleteRef.current,
-    {componentRestrictions: { country: "au" } }
-  );
-  autoComplete.setFields(["address_components", "formatted_address", "geometry", "name", "url"]);
-  autoComplete.addListener("place_changed", () =>
-    handlePlaceSelect(updateQuery)
-  );
-}
-
-async function handlePlaceSelect(updateQuery) {
-  const addressObject = autoComplete.getPlace();
-  const query = addressObject.formatted_address;
-  const queryName = addressObject.name;
-  const queryLng = addressObject.geometry.location.lng();
-  const queryLat = addressObject.geometry.location.lat();
-  const queryUrl = addressObject.url;
-  // const queryPostcode = addressObject.address_components.long_name.postcode;
-
-  updateQuery(query);
-
-  console.log(addressObject);
-  console.log(queryUrl);
-  console.log(queryName);
-  console.log(queryLng);
-  console.log(queryLat);
-  // console.log(queryPostcode);
-}
-
 const Wrapper = ({ children }) => (
   <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-xl">
     <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
@@ -69,38 +21,146 @@ const Wrapper = ({ children }) => (
   </div>
 );
 
-export default function EventForm () {
-
-  const [query, setQuery] = useState("");
-  const autoCompleteRef = useRef(null);
-
-  useEffect(() => {
-    loadScript(
-      `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_API_KEY}&libraries=places`,
-      () => handleScriptLoad(setQuery, autoCompleteRef)
-    );
-  }, []);
+export default function EventForm ({ formId, eventForm, forNewEvent = true }) {
+  const router = useRouter()
+  const contentType = 'application/json'
+  const [errors, setErrors] = useState({})
+  const [message, setMessage] = useState('')
 
   const [form, setForm] = useState({
-    title: '',
-    subTitle: '',
-    organisationName: '',
-    category: '',
-    date: '',
-    startTime: '',
-    endTime: '',
-    description: '',
-    eventImage: '',
-    locationSearch: '',
-    locationName: '',
-    locationAddress: '',
-    locationSuburb: '',
-    locationCountry: '',
-    locationPostcode: '',
-    locationLat: '',
-    locationLong: '',
-    locationUrl: '',
+    title: eventForm.title,
+    subTitle: eventForm.subTitle,
+    organisationName: eventForm.organisationName,
+    category: eventForm.category,
+    date: eventForm.date,
+    startTime: eventForm.startTime,
+    endTime: eventForm.endTime,
+    description: eventForm.description,
+    eventImage: eventForm.eventImage,
+    // locationSearch: eventForm.locationSearch,
+    locationName: eventForm.locationName,
+    address: eventForm.address,
+    suburb: eventForm.suburb,
+    state: eventForm.state,
+    postcode: eventForm.postcode,
+    lat: eventForm.lat,
+    long: eventForm.long,
+    link: eventForm.link,
+    taskTitle: eventForm.taskTitle || '',
+    taskDescription: eventForm.taskDescription,
+    taskGoalHours: eventForm.taskGoalHours,
   });
+
+  const handleAddressUpdate = (newAddress) => {
+    console.log({ form, newAddress });
+    setForm({ ...form, ...newAddress })
+  };
+
+  const { ref, autocompleteRef } = usePlacesWidget({
+    apiKey: process.env.NEXT_PUBLIC_API_KEY,
+    options: {
+      types: ['address'],
+      componentRestrictions: { country: "au" },
+    },
+    onPlaceSelected: (place = {}) => {
+      console.log('1111 updating address')
+      const { address_components = [], formatted_address, geometry } = place;
+      const getAddressComponent = (key) => address_components.find((item) => item.types.includes(key))?.long_name || ''; 
+
+
+      console.log(2222, {
+        address: formatted_address,
+        lat: geometry.location.lat(),
+        long: geometry.location.lng(),
+        postcode: getAddressComponent('postcode'),
+        suburb: getAddressComponent('locality'),
+        state: getAddressComponent('administrative_area_level_1'),
+      });
+      handleAddressUpdate({
+        address: formatted_address,
+        lat: geometry.location.lat(),
+        long: geometry.location.lng(),
+        postcode: getAddressComponent('postcode'),
+        suburb: getAddressComponent('locality'),
+        state: getAddressComponent('administrative_area_level_1'),
+      });
+    }
+  });
+
+/* The PUT method edits an existing entry in the mongodb database. */
+const putData = async (form) => {
+  const { id } = router.query
+
+  try {
+    const payload = {
+      ...form,
+      task: {
+        taskTitle: form.taskTitle,
+        taskDescription: form.taskDescription,
+        taskGoalHours: form.taskGoalHours,
+      },
+    };
+
+    console.log({ payload })
+
+    const res = await fetch(`/api/events/${id}`, {
+      method: 'PUT',
+      headers: {
+        Accept: contentType,
+        'Content-Type': contentType,
+      },
+      body: JSON.stringify(payload),
+    })
+
+    // Throw error with status code in case Fetch API req failed
+    if (!res.ok) {
+      throw new Error(res.status)
+    }
+
+    const { data } = await res.json()
+
+    mutate(`/api/events/${id}`, data, false) // Update the local data without a revalidation
+    router.push('/')
+  } catch (error) {
+    setMessage('Failed to update event')
+  }
+}
+
+/* The POST method adds a new entry in the mongodb database. */
+const postData = async (form) => {
+  try {
+    const payload = {
+      ...form,
+      task: {
+        taskTitle: form.taskTitle,
+        taskDescription: form.taskDescription,
+        taskGoalHours: form.taskGoalHours,
+      },
+    };
+
+    console.log({ payload })
+  
+    
+    const res = await fetch('/api/events', {
+      method: 'POST',
+      headers: {
+        Accept: contentType,
+        'Content-Type': contentType,
+      },
+      body: JSON.stringify(payload),
+    })
+
+    // Throw error with status code in case Fetch API req failed
+    if (!res.ok) {
+      throw new Error(res.status)
+    }
+
+    router.push('/')
+  } catch (error) {
+    setMessage('Failed to add event')
+  }
+}
+
   const handleChange = (e) => {
     const target = e.target
     const value = target.value
@@ -112,20 +172,33 @@ export default function EventForm () {
     })
   }
 
-/**
- * <Wrapper>
- *   <Form>
- *     <Input />
- *     <Input />
- *     <Input />
- *     <Input />
- *   </Form>
- * </Wrapper>
- */
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const errs = formValidate()
+
+    if (Object.keys(errs).length === 0) {
+      forNewEvent ? postData(form) : putData(form)
+    } else {
+      setErrors({ errs })
+    }
+
+    return false;
+  }
+
+  /* Makes sure pet info is filled for pet name, owner name, species, and image url*/
+  const formValidate = () => {
+    let err = {}
+    if (!form.title) err.title = 'Title is required'
+    if (!form.organisationName) err.organisationName = 'Orgainisation is required'
+    if (!form.description) err.description = 'Description is required'
+    if (!form.eventImage) err.eventImage = 'Image URL is required'
+    return err
+  }
+
 
   return (
     <Wrapper>
-      <Form action="#" method="POST">
+      <Form id={formId} onSubmit={handleSubmit}>
         <FieldContainer headerText="Event Information" bodyText="Lorem ipsum dolor sit amet, consectetur adipiscing elit.">
           
           <Input 
@@ -146,7 +219,7 @@ export default function EventForm () {
           />
           <Input 
             type="text" 
-            name="organisation" 
+            name="organisationName" 
             label="Organisation Name" 
             onChange={handleChange} 
             value={form.organisationName} 
@@ -161,7 +234,7 @@ export default function EventForm () {
             width="sm:col-span-6"
           >
             {categoryData.map((cat) => (
-              <option key={cat.title}>{cat.title}</option>
+              <option key={cat.title}  value={cat.title} >{cat.title}</option>
             ))}
             </Select>
           <Input 
@@ -195,38 +268,31 @@ export default function EventForm () {
             onChange={handleChange} 
             value={form.description} 
             width="sm:col-span-6"
+            required
           />
-          <UploadImage 
+           <Input 
+            type="url" 
+            name="eventImage" 
+            label="Event Image" 
+            onChange={handleChange} 
+            value={form.eventImage} 
+            width="sm:col-span-6"
+            required
+          />
+          {/* <UploadImage 
           name="eventImage" 
             type="file" 
             label="Event Image" 
             onChange={handleChange} 
             value={form.eventImage} 
             width="sm:col-span-6"
-          />      
+          />       */}
         </FieldContainer>
 
-        <FieldContainer headerText="Location Information" bodyText="Lorem ipsum dolor sit amet, consectetur adipiscing elit.">
-        <div className="sm:col-span-6">
-        <FormLabel name="locationName" label="Event Location"  />
-        <div className="mt-1">
-            <input 
-            type="text" 
-              ref={autoCompleteRef}
-              onChange={event => setQuery(event.target.value)}
+        <FieldContainer headerText="Location Information" bodyText="Lorem ipsum dolor sit amet, consectetur adipiscing elit.">          
+            {/* <Input 
+              ref={ref}
               placeholder='Start typing the location name or address' 
-              value={query}
-              width="sm:col-span-6"
-              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-            />
-            </div>
-          </div>
-          
-            {/* <Search 
-              ref={autoCompleteRef}
-              onChange={event => setQuery(event.target.value)}
-              placeholder='Start typing the location name or address' 
-              value={query}
               type="text" 
               name="locationSearch" 
               label="Event Location" 
@@ -242,63 +308,63 @@ export default function EventForm () {
               value={form.locationName} 
               width="sm:col-span-6"
             />
-  
+
             <Input 
               type="text" 
-              name="locationAddress" 
+              name="address" 
               label="Location Address" 
               onChange={handleChange} 
-              value={form.locationAddress} 
+              value={form.address} 
               width="sm:col-span-6"
             />
 
             <div >
               <Input 
                 type="text" 
-                name="locationSuburb" 
-                label="locationSuburb" 
+                name="suburb" 
+                label="suburb" 
                 onChange={handleChange} 
-                value={form.locationSuburb} 
+                value={form.suburb} 
               />
               <Input 
                 type="text" 
-                name="locationCountry" 
-                label="locationCountry" 
+                name="state" 
+                label="state" 
                 onChange={handleChange} 
-                value={form.locationCountry} 
+                value={form.state} 
               />
               <Input 
                 type="text" 
-                name="locationPostcode" 
-                label="locationPostcode" 
+                name="postcode" 
+                label="postcode" 
                 onChange={handleChange} 
-                value={form.locationPostcode} 
+                value={form.postcode} 
               />
               <Input 
                 type="text" 
-                name="locationLat" 
-                label="locationLat" 
+                name="lat" 
+                label="lat" 
                 onChange={handleChange} 
-                value={form.locationLat} 
+                value={form.lat} 
               />
               <Input 
                 type="text" 
-                name="locationLong"
-                label="locationLong" 
+                name="long"
+                label="long" 
                 onChange={handleChange} 
-                value={form.locationLong} 
+                value={form.long} 
               />
               <Input 
                 type="text" 
-                name="locationUrl" 
-                label="locationUrl" 
+                name="link" 
+                label="link" 
                 onChange={handleChange} 
-                value={form.locationUrl} 
+                value={form.link} 
               />
               </div>
             </FieldContainer>
 
-        <FieldSetContainer headerText="Task Information" subHeaderText="Tack1" bodyText="Lorem ipsum dolor sit amet, consectetur adipiscing elit.">
+        <FieldContainer headerText="Task Information" subHeaderText="Tack1" bodyText="Lorem ipsum dolor sit amet, consectetur adipiscing elit.">
               <Input 
                 type="text" 
                 name="taskTitle" 
@@ -307,6 +373,7 @@ export default function EventForm () {
                 value={form.taskTitle} 
                 width="sm:col-span-6"
               />
+
               <TextArea 
                 rows="10" 
                 name="taskDescription" 
@@ -316,14 +383,19 @@ export default function EventForm () {
                 width="sm:col-span-6"
               />
               <Select 
-                type="text" 
-                name="goalHours" 
+                type="number" 
+                name="taskGoalHours" 
                 label="Goal Amount in hours" 
                 onChange={handleChange} 
-                value={form.goalHours} 
+                value={form.taskGoalHours} 
                 width="sm:col-span-6"
-              />
-         </FieldSetContainer>
+                >
+                {[1,2,3,4,5,6,7,8,9].map((number) => (
+                  <option key={number} value={number}>{number}</option>
+                ))}
+
+              </Select>
+         </FieldContainer>
       <div className="pt-5">
         <div className="flex justify-end">
           <button
@@ -341,6 +413,12 @@ export default function EventForm () {
         </div>
       </div>
     </Form>
+    <p>{message}</p>
+    <div>
+        {Object.keys(errors).map((err, index) => (
+          <li key={index}>{err}</li>
+        ))}
+      </div>
     </Wrapper>
   )
 }

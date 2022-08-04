@@ -1,11 +1,12 @@
 import React from 'react';
 import FormLabel from './Label';
 
-const TextField = ({ name, label, onChange, type, value, placeholder, width }) => (
+const TextField = React.forwardRef(({ name, label, onChange, type, value, placeholder, width }, ref) => (
   <div className={width}>
     <FormLabel name={name} label={label} />
     <div className="mt-1">
       <input
+        ref={ref}
         type={type}
         name={name}
         id={name}
@@ -16,6 +17,6 @@ const TextField = ({ name, label, onChange, type, value, placeholder, width }) =
       />
     </div>
   </div>
-);
+));
 
 export default TextField;

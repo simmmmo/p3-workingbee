@@ -6,13 +6,13 @@ const Task = require('./Task');
 const donationSchema = new mongoose.Schema({
     taskId: [
       {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Task',
       },
     ],
     userId: [
       {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
       },
     ],

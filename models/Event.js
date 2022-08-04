@@ -14,15 +14,19 @@ const eventSchema = new mongoose.Schema({
       required: true,
       trim: true,
     },
-    organisation: {
+    organisationName: {
       type: String,
       trim: true,
     },
     category: {
-      type: Schema.Types.ObjectId,
-      ref: 'Category',
-      required: true,
+      type: String,
+      trim: true,
     },
+    // category: {
+        // type: mongoose.Schema.Types.ObjectId,
+    //  ref: 'Category',
+    //  required: true,
+    // },
     date: {
       type: String,
       required: true,
@@ -36,56 +40,52 @@ const eventSchema = new mongoose.Schema({
       required: true,
       trim: true,
     },
-    image: {
+    eventImage: {
+      type: String,
+      trim: true,
+    },  
+    locationName: {
       type: String,
       trim: true,
     },
-    location: [
-      {
-        name: {
-          type: String,
-          trim: true,
-        },
-        address: {
-          type: String,
-          trim: true,
-        },
-        suburb: {
-          type: String,
-          trim: true,
-        },
-        postcode: {
-          type: String,
-          trim: true,
-        },
-        country: {
-          type: String,
-          trim: true,
-        },
-        long: {
-          type: String,
-          trim: true,
-        },
-        lat: {
-          type: String,
-          trim: true,
-        },
-        url: {
-          type: String,
-          trim: true,
-        },
-      }
-    ],
+    address: {
+      type: String,
+      trim: true,
+    },
+    suburb: {
+      type: String,
+      trim: true,
+    },
+    state: {
+      type: String,
+      trim: true,
+    },
+    postcode: {
+      type: String,
+      trim: true,
+    },
+    lat: {
+      type: Number,
+      trim: true,
+    },
+    long: {
+      type: Number,
+      trim: true,
+    },
+    link: {
+      type: String,
+      trim: true,
+    },
     description: {
       type: String,
       trim: true,
     },
-    createdBy: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-      },
-    ],
+    // createdBy: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'User',
+    //   },
+    // ],
   }
 );
 

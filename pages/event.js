@@ -1,6 +1,6 @@
 import PageTitle from '../components/PageTitle';
 import {useEffect, useRef} from 'react';
-import eventData from '../data/eventData'
+import eventData from '../data/eventData';
 import EventCard from '../components/Cards/EventCard';
 import GoalCard from '../components/Cards/GoalCard';
 import LocationCard from '../components/Cards/LocationCard';
@@ -35,7 +35,6 @@ export default function EventSingle() {
   
   return (
   <>
-  
     <div className="min-h-full">
       <PageTitle title={eventData.title}  />
         <main className="mt-10 pb-8">
@@ -49,16 +48,16 @@ export default function EventSingle() {
                 <EventCard
                   title={eventData.title}  
                   subTitle={eventData.subTitle}  
-                  organisation={eventData.organisation} 
+                  organisationName={eventData.organisationName} 
                   category={eventData.category}  
                   date={eventData.date}  
                   startTime={eventData.startTime}  
                   endTime={eventData.endTime}  
-                  image={eventData.image}  
+                  eventImage={eventData.eventImage}  
                   description={eventData.description}
-                  locationName={eventData.location.name} 
-                  locationSuburb={eventData.location.suburb} 
-                  locationPostcode={eventData.location.postcode}               
+                  name={eventData.location.name} 
+                  suburb={eventData.location.suburb} 
+                  postcode={eventData.location.postcode}               
                 />
               </div>
               {/* Right column */}

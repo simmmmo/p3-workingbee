@@ -7,6 +7,9 @@ const categorySchema = new mongoose.Schema({
     defaultImage: {
       type: String,
     },
+    link: {
+      type: String,
+    },
   }
 );
 

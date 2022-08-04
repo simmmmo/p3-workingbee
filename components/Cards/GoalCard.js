@@ -59,7 +59,7 @@ export default function GoalCard() {
                         width="sm:col-span-6"
                       >
                        {taskData.map((task) => (
-                         <option key={task.title}>{task.title}</option>
+                         <option key={task.title} value={task._id}>{task.title}</option>
                         ))}
                     </Select>
                     <Select 

@@ -1,24 +1,24 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const Event = require('./Event');
 
 const taskSchema = new mongoose.Schema({
     eventId: [
       {
-        type: Schema.Types.ObjectId,
-        ref: 'Event',
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Event'
       },
     ],
-    title: {
+    taskTitle: {
       type: String,
       required: true,
       trim: true,
     },
-    description: {
+    taskDescription: {
       type: String,
       trim: true,
     },
-    goalHours: {
+    taskGoalHours: {
       type: Number,
       required: true,
     },

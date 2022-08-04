@@ -32,20 +32,18 @@ const tasks = [
 
 
 
-export default function EventCard({ title, subTitle, organisation, category, date, startTime, endTime, image,  locationName, locationSuburb, locationPostcode, description }) {
+export default function EventCard({ title, subTitle, organisationName, category, date, startTime, endTime, eventImage, locationName, suburb, description, children }) {
   
 
   return (
   <>
-
-
 <section aria-labelledby={title}>
       <h2 className="sr-only" id={title}>
         {title}
       </h2>
   <div className="rounded-lg bg-white overflow-hidden shadow">
-          <img
-          src={image}
+        <img
+          src={eventImage}
           alt={title}
           className="w-full h-full object-center object-cover"
         />
@@ -60,7 +58,7 @@ export default function EventCard({ title, subTitle, organisation, category, dat
                 <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-3">
                 <div className="sm:col-span-1">
                     <dt className="text-sm font-medium text-gray-500">Date</dt>
-                    <dd className="mt-1 text-sm text-gray-900"><time dateTime={date}>August 25, 2022</time></dd>
+                    <dd className="mt-1 text-sm text-gray-900"><time dateTime={date}>{date}</time></dd>
                   </div>
                   <div className="sm:col-span-1">
                     <dt className="text-sm font-medium text-gray-500">Time</dt>
@@ -76,11 +74,11 @@ export default function EventCard({ title, subTitle, organisation, category, dat
                   </div>
                   <div className="sm:col-span-1">
                     <dt className="text-sm font-medium text-gray-500">Suburb</dt>
-                    <dd className="mt-1 text-sm text-gray-900">{locationSuburb}</dd>
+                    <dd className="mt-1 text-sm text-gray-900">{suburb}</dd>
                   </div>
                   <div className="sm:col-span-1">
                     <dt className="text-sm font-medium text-gray-500">Organisation</dt>
-                    <dd className="mt-1 text-sm text-gray-900">{organisation}</dd>
+                    <dd className="mt-1 text-sm text-gray-900">{organisationName}</dd>
                   </div>
                 </dl>
             <div className="mt-6 text-gray-500 space-y-6">
@@ -95,18 +93,8 @@ export default function EventCard({ title, subTitle, organisation, category, dat
             </h3>
           <div className="mt-12 lg:mt-0">
             <dl className="space-y-10 sm:space-y-0 sm:grid l sm:gap-x-6 sm:gap-y-10 lg:gap-x-8">
-            {taskData.map((task) => (
-              <div key={task.title} className="relative">
-                <dt>
-                  <CheckIcon className="absolute h-6 w-6 text-gray-300" aria-hidden="true" />
-                  <p className="ml-9 text-lg leading-6 font-medium text-gray-900">{task.title}</p>
-                </dt>
-                <dd className="mt-2 ml-9 text-base text-gray-500">{task.description}</dd>
-                <dd className="mt-2 ml-9 text-base text-gray-500">Estimated time needed: {task.goalHours}hrs</dd>
-                <dd className="mt-2 ml-9 text-base text-gray-500">Time donated: {task.donationed}hrs</dd>
-                <dd className="mt-2 ml-9 text-base text-gray-500">Contributors: {task.contributors}</dd>
-              </div>
-            ))}
+              { children }
+    
             </dl>
           </div>
         </div>
