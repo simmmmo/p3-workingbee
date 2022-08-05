@@ -1,5 +1,4 @@
 import dbConnect from '../../../lib/dbConnect'
-import Event from '../../../models/Event'
 import Task from '../../../models/Task'
 
 export default async function handler(req, res) {
@@ -10,36 +9,36 @@ export default async function handler(req, res) {
   switch (method) {
     case 'GET':
       try {
-        const events = await Event.find({}) /* find all the data in our database */
-        res.status(200).json({ success: true, data: events })
+        const tasks = await Task.find({}) /* find all the data in our database */
+        res.status(200).json({ success: true, data: tasks })
       } catch (error) {
         res.status(400).json({ success: false })
       }
       break
     case 'POST':
       try {
-        // const { task, ...event } = req.body
+        // const { task, ...task } = req.body
 
-        // const newEvent = await Event.create(
-        //   event
+        // const newTask = await Task.create(
+        //   task
         // ) 
         // const newTask = await Task.create(
         //   task 
         // ) 
-        const event = await Event.create(
+        const task = await Task.create(
           req.body
         )
         /* create a new model in the database */
 
-        // console.log({ newEvent })
+        // console.log({ newTask })
         // console.log({ newTask })
 
         // Map over each task and create a task.
-        // const newTask = await Task.create({ ...task, eventId: event._id });
+        // const newTask = await Task.create({ ...task, taskId: task._id });
 
         // console.log({ task });
-        res.status(201).json({ success: true, data: event })
-        // res.status(201).json({ success: true, data: { ...newEvent, task: {} } })
+        res.status(201).json({ success: true, data: task })
+        // res.status(201).json({ success: true, data: { ...newTask, task: {} } })
       } catch (error) {
         res.status(400).json({ success: false, error })
       }

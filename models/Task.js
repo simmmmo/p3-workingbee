@@ -1,14 +1,12 @@
 import mongoose from 'mongoose';
 
-const Event = require('./Event');
+// const Event = require('./Event');
 
 const taskSchema = new mongoose.Schema({
-    eventId: [
-      {
+    eventId:  {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Event'
       },
-    ],
     taskTitle: {
       type: String,
       required: true,

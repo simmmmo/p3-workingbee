@@ -1,9 +1,9 @@
 const navigation = [
   { name: 'Home', href: '/' },
   { name: 'Explore', href: '#' },
-  { name: 'Create', href: 'create' },
-  { name: 'About', href: 'about' },
-  { name: 'Event Single', href: 'event' },
+  { name: 'Create', href: '/create' },
+  { name: 'About', href: '/about' },
+  // { name: 'Event Single', href: 'event' },
   // { name: 'Add', href: 'new' },
 ]
 
@@ -31,13 +31,13 @@ export default function Header() {
           </div>
           <div className="ml-10 space-x-4">
             <a
-              href="signin"
+              href="/signin"
               className="inline-block bg-indigo-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75"
             >
               Sign in
             </a>
             <a
-              href="join"
+              href="/join"
               className="inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-indigo-600 hover:bg-indigo-50"
             >
               Join

@@ -10,7 +10,6 @@ import Form from './Form/Form';
 import FormLabel from './Form/Label';
 import UploadImage from './Form/UploadImage';
 import FieldContainer from './Form/Container';
-import FieldSetContainer from './Form/FieldSetContainer';
 import categoryData from '../data/categoryData';
 
 const Wrapper = ({ children }) => (
@@ -46,9 +45,9 @@ export default function EventForm ({ formId, eventForm, forNewEvent = true }) {
     lat: eventForm.lat,
     long: eventForm.long,
     link: eventForm.link,
-    taskTitle: eventForm.taskTitle || '',
-    taskDescription: eventForm.taskDescription,
-    taskGoalHours: eventForm.taskGoalHours,
+    // taskTitle: eventForm.taskTitle || '',
+    // taskDescription: eventForm.taskDescription,
+    // taskGoalHours: eventForm.taskGoalHours,
   });
 
   const handleAddressUpdate = (newAddress) => {
@@ -94,11 +93,11 @@ const putData = async (form) => {
   try {
     const payload = {
       ...form,
-      task: {
-        taskTitle: form.taskTitle,
-        taskDescription: form.taskDescription,
-        taskGoalHours: form.taskGoalHours,
-      },
+      // task: {
+      //   taskTitle: form.taskTitle,
+      //   taskDescription: form.taskDescription,
+      //   taskGoalHours: form.taskGoalHours,
+      // },
     };
 
     console.log({ payload })
@@ -131,11 +130,11 @@ const postData = async (form) => {
   try {
     const payload = {
       ...form,
-      task: {
-        taskTitle: form.taskTitle,
-        taskDescription: form.taskDescription,
-        taskGoalHours: form.taskGoalHours,
-      },
+      // task: {
+      //   taskTitle: form.taskTitle,
+      //   taskDescription: form.taskDescription,
+      //   taskGoalHours: form.taskGoalHours,
+      // },
     };
 
     console.log({ payload })
@@ -232,7 +231,9 @@ const postData = async (form) => {
             onChange={handleChange} 
             value={form.category} 
             width="sm:col-span-6"
+            defaultValue=""
           >
+            <option value="" disabled>Please select a category</option>
             {categoryData.map((cat) => (
               <option key={cat.title}  value={cat.title} >{cat.title}</option>
             ))}
@@ -364,7 +365,7 @@ const postData = async (form) => {
               </div>
             </FieldContainer>
 
-        <FieldContainer headerText="Task Information" subHeaderText="Tack1" bodyText="Lorem ipsum dolor sit amet, consectetur adipiscing elit.">
+        {/* <FieldContainer headerText="Task Information" subHeaderText="Tack1" bodyText="Lorem ipsum dolor sit amet, consectetur adipiscing elit.">
               <Input 
                 type="text" 
                 name="taskTitle" 
@@ -395,7 +396,7 @@ const postData = async (form) => {
                 ))}
 
               </Select>
-         </FieldContainer>
+         </FieldContainer> */}
       <div className="pt-5">
         <div className="flex justify-end">
           <button

@@ -10,7 +10,7 @@ import FieldContainer from './Form/Container';
 
 
 
-const TaskForm = ({ eventId, formId, taskForm, forNewTask = true }) => {
+const DonationForm = ({ taskData, eventId, formId, donationForm, forNewDonation = true }) => {
 
     const router = useRouter()
     const contentType = 'application/json'
@@ -18,10 +18,10 @@ const TaskForm = ({ eventId, formId, taskForm, forNewTask = true }) => {
     const [message, setMessage] = useState('')
     
     const [form, setForm] = useState({
-      taskTitle: taskForm.taskTitle,
-      taskDescription: taskForm.taskDescription,
-      taskGoalHours: taskForm.taskGoalHours,
-      eventId: taskForm.eventId,
+      taskId: donationForm.taskId,
+      userId: donationForm.userId,
+      donationHours: donationForm.donationHours,
+      eventId: donationForm.eventId,
     })
   
     /* The PUT method edits an existing entry in the mongodb database. */
@@ -29,7 +29,7 @@ const TaskForm = ({ eventId, formId, taskForm, forNewTask = true }) => {
       const { id } = router.query
   
       try {
-        const res = await fetch(`/api/tasks/${id}`, {
+        const res = await fetch(`/api/donations/${id}`, {
           method: 'PUT',
           headers: {
             Accept: contentType,
@@ -45,17 +45,17 @@ const TaskForm = ({ eventId, formId, taskForm, forNewTask = true }) => {
   
         const { data } = await res.json()
   
-        mutate(`/api/tasks/${id}`, data, false) // Update the local data without a revalidation
+        mutate(`/api/donations/${id}`, data, false) // Update the local data without a revalidation
         router.push('/')
       } catch (error) {
-        setMessage('Failed to update task')
+        setMessage('Failed to update donation')
       }
     }
   
     /* The POST method adds a new entry in the mongodb database. */
     const postData = async (form) => {
       try {
-        const res = await fetch('/api/tasks', {
+        const res = await fetch('/api/donations', {
           method: 'POST',
           headers: {
             Accept: contentType,
@@ -71,7 +71,7 @@ const TaskForm = ({ eventId, formId, taskForm, forNewTask = true }) => {
   
         router.push('/')
       } catch (error) {
-        setMessage('Failed to add task')
+        setMessage('Failed to add donation')
       }
     }
   
@@ -90,85 +90,83 @@ const TaskForm = ({ eventId, formId, taskForm, forNewTask = true }) => {
       e.preventDefault()
       const errs = formValidate()
       if (Object.keys(errs).length === 0) {
-        forNewTask ? postData(form) : putData(form)
+        forNewDonation ? postData(form) : putData(form)
       } else {
         setErrors({ errs })
       }
     }
   
-    /* Makes sure task info is filled for task name, owner name, species, and image url*/
+    /* Makes sure donation info is filled for donation name, owner name, species, and image url*/
     const formValidate = () => {
       let err = {}
-      if (!form.taskTitle) err.taskTitle = 'Title is required'
-      if (!form.taskDescription) err.taskDescription = 'Description is required'
       return err
     }
 
   return (
     <>
     <Form id={formId} onSubmit={handleSubmit}>
-          <FieldContainer headerText="Task Information" subHeaderText="Add Task" bodyText="Lorem ipsum dolor sit amet, consectetur adipiscing elit.">
-              <Input 
+    {/* <Input 
                 type="text" 
-                name="taskTitle" 
-                label="Task Title" 
+                name="taskId" 
+                label="Task Id" 
                 onChange={handleChange} 
-                value={form.taskTitle} 
+                value={form.taskId} 
                 width="sm:col-span-6"
-                required
               />
-
-              <TextArea 
-                rows="10" 
-                name="taskDescription" 
-                label="Task Description" 
-                onChange={handleChange} 
-                value={form.taskDescription} 
-                width="sm:col-span-6"
-                required
-              />
-              <Select 
-                type="number" 
-                name="taskGoalHours" 
-                label="Goal Amount in hours" 
-                onChange={handleChange} 
-                value={form.taskGoalHours} 
-                width="sm:col-span-6"
+              */}
+                  <Select 
+                    type="text" 
+                    name="taskId" 
+                    label="Task" 
+                    onChange={handleChange} 
+                    value={form.taskId} 
+                    width="sm:col-span-6"
+                    defaultValue=""
+                  >
+                    <option value="" disabled>Please select a task</option>
+                    {taskData.map((task) => (
+                      <option key={task._id} value={task._id}>{task.taskTitle}</option>
+                    ))}
+                </Select>
+                <Select 
+                  type="text" 
+                  name="donationHours" 
+                  label="Donate Hours" 
+                  onChange={handleChange} 
+                  value={form.donationHours} 
+                  width="sm:col-span-6"
+                  defaultValue=""
                 >
-                <option value="" disabled selected>Please select task goal hours</option>
-                {[1,2,3,4,5,6,7,8,9].map((number) => (
+                  <option value="" disabled>Please select donation hours</option>
+                  {[1,2,3,4,5,6,7,8,9].map((number) => (
                   <option key={number} value={number}>{number}</option>
                 ))}
-
-              </Select>
-
-              <Input 
+                </Select>
+                <Input 
+                type="text" 
+                name="userId" 
+                label="User Id" 
+                onChange={handleChange} 
+                value={form.userId} 
+                width="sm:col-span-6"
+              />
+                       <Input 
                 type="text" 
                 name="eventId" 
                 label="Event Id" 
                 onChange={handleChange} 
                 value={form.eventId} 
                 width="sm:col-span-6"
-                required
               />
-         </FieldContainer>
-              <div className="pt-5">
-              <div className="flex justify-end">
-                <button
-                  type="button"
-                  className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  Cancel
-                </button>
+              <div>
                 <button
                   type="submit"
-                  className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                  Save
+                  Get Involved
                 </button>
               </div>
-            </div>
-          </Form>
+              </Form>
           <p>{message}</p>
           <div>
               {Object.keys(errors).map((err, index) => (
@@ -179,4 +177,4 @@ const TaskForm = ({ eventId, formId, taskForm, forNewTask = true }) => {
   )
 }
 
-export default TaskForm;
+export default DonationForm;

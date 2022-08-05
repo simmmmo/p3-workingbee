@@ -80,12 +80,10 @@ const eventSchema = new mongoose.Schema({
       type: String,
       trim: true,
     },
-    // createdBy: [
-    //   {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'User',
-    //   },
-    // ],
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
   }
 );
 

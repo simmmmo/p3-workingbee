@@ -1,24 +1,16 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react';
-import taskData from '../../data/taskData'
+// import taskData from '../../data/taskData'
 import Select from '../Form/Select';
 import Form from '../Form/Form';
+import DonationForm from '../DonationForm';
 
-export default function GoalCard() {
+export default function GoalCard({taskData, eventId}) {
   
-  const [form, setForm] = useState({
-    taskContributeTitle: '',
-    taskContributeHours: '',
-  });
-
-  const handleChange = (e) => {
-    const target = e.target
-    const value = target.value
-    const name = target.name
-
-    setForm({
-      ...form,
-      [name]: value,
-    })
+  const donationForm = {
+    taskId: '',
+    userId: '',
+    donationHours: '',
+    eventId: eventId,
   }
 
   return (
@@ -34,9 +26,9 @@ export default function GoalCard() {
                   <h3 className="font-medium text-gray-900">Task Progress</h3>
                   <dl className="mt-2 border-t border-b border-gray-200 divide-y divide-gray-200">
                   {taskData.map((task) => (
-                      <div key={task.title} className="py-3 flex justify-between text-sm font-medium">
-                        <dt className="text-gray-500">{task.title}</dt>
-                        <dd className="text-gray-900">{task.donationed} of {task.goalHours} Hours</dd>
+                      <div key={task._id} className="py-3 flex justify-between text-sm font-medium">
+                        <dt className="text-gray-500">{task.taskTitle}</dt>
+                        <dd className="text-gray-900">0 of {task.taskGoalHours} Hours</dd>
                       </div>
                     ))}
                   </dl>
@@ -49,7 +41,8 @@ export default function GoalCard() {
                 </div>
                   <div className="flow-root mt-6">
                     <div>
-                    <Form action="#" method="POST">
+                    <DonationForm formId="add-donation-form" taskData={taskData} donationForm={donationForm}/>
+                    {/* <Form action="#" method="POST">
                     <Select 
                         type="text" 
                         name="taskContributeTitle" 
@@ -59,7 +52,7 @@ export default function GoalCard() {
                         width="sm:col-span-6"
                       >
                        {taskData.map((task) => (
-                         <option key={task.title} value={task._id}>{task.title}</option>
+                         <option key={task._id} value={task._id}>{task.taskTitle}</option>
                         ))}
                     </Select>
                     <Select 
@@ -70,13 +63,9 @@ export default function GoalCard() {
                       value={form.taskContributeHours} 
                       width="sm:col-span-6"
                     >
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                      <option>6</option>
-                      <option>7</option>
+                      {[1,2,3,4,5,6,7,8,9].map((number) => (
+                      <option key={number} value={number}>{number}</option>
+                    ))}
                     </Select>
                   <div>
                     <button
@@ -86,7 +75,7 @@ export default function GoalCard() {
                       Get Involved
                     </button>
                   </div>
-                  </Form>
+                  </Form> */}
                </div>
               </div>
               <div className="mt-6">

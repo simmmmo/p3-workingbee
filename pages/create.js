@@ -21,9 +21,6 @@ export default function NewEvent() {
     lat: '',
     long: '',
     link: '',
-    taskTitle: '',
-    taskDescription: '',
-    taskGoalHours: '',
   }
 
   return (
