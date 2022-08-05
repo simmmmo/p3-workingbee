@@ -1,31 +1,26 @@
-const { Schema, model } = require('mongoose');
+import mongoose from 'mongoose';
 
-const Event = require('./Event');
+// const Event = require('./Event');
 
-const taskSchema = new Schema(
-  {
-    eventId: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Event',
+const taskSchema = new mongoose.Schema({
+    eventId:  {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Event'
       },
-    ],
-    title: {
+    taskTitle: {
       type: String,
       required: true,
       trim: true,
     },
-    description: {
+    taskDescription: {
       type: String,
       trim: true,
     },
-    goalHours: {
+    taskGoalHours: {
       type: Number,
       required: true,
     },
   }
 );
 
-const Task = model('Task', taskSchema);
-
-module.exports = Task;
+export default mongoose.models.Task || mongoose.model('Task', taskSchema)

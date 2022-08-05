@@ -1,30 +1,27 @@
-const { Schema, model } = require('mongoose');
+import mongoose from 'mongoose'
 
-const User = require('./User');
-const Task = require('./Task');
+// const User = require('./User');
+// const Task = require('./Task');
 
-const donationSchema = new Schema(
-  {
-    taskId: [
+const donationSchema = new mongoose.Schema({
+    taskId: 
       {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Task',
       },
-    ],
-    userId: [
+    userId: 
       {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
       },
-    ],
     donationHours: {
       type: Number,
-      required: true,
-      default: 0,
+    },
+    eventId:  {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Event'
     },
   }
 );
 
-const Donation = model('Donation', donationSchema);
-
-module.exports = Donation;
+export default mongoose.models.Donation || mongoose.model('Donation', donationSchema)

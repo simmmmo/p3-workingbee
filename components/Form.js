@@ -7,7 +7,7 @@ const Form = ({ formId, petForm, forNewPet = true }) => {
   const contentType = 'application/json'
   const [errors, setErrors] = useState({})
   const [message, setMessage] = useState('')
-
+  
   const [form, setForm] = useState({
     name: petForm.name,
     owner_name: petForm.owner_name,
@@ -141,14 +141,6 @@ const Form = ({ formId, petForm, forNewPet = true }) => {
           type="number"
           name="age"
           value={form.age}
-          onChange={handleChange}
-        />
-
-        <label htmlFor="poddy_trained">Potty Trained</label>
-        <input
-          type="checkbox"
-          name="poddy_trained"
-          checked={form.poddy_trained}
           onChange={handleChange}
         />
 
