@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const User = require('./User');
+// const User = require('./User');
 // const Category = require('./Category');
 
 const eventSchema = new mongoose.Schema({

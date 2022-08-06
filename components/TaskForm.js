@@ -134,8 +134,9 @@ const TaskForm = ({ eventId, formId, taskForm, forNewTask = true }) => {
                 onChange={handleChange} 
                 value={form.taskGoalHours} 
                 width="sm:col-span-6"
+                defaultValue=""
                 >
-                <option value="" disabled selected>Please select task goal hours</option>
+                <option value="" disabled>Please select task goal hours</option>
                 {[1,2,3,4,5,6,7,8,9].map((number) => (
                   <option key={number} value={number}>{number}</option>
                 ))}
