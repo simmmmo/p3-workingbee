@@ -1,8 +1,5 @@
 import mongoose from 'mongoose'
 
-// const User = require('./User');
-// const Task = require('./Task');
-
 const donationSchema = new mongoose.Schema({
     taskId: 
       {

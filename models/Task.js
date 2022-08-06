@@ -9,7 +9,6 @@ const taskSchema = new mongoose.Schema({
       },
     taskTitle: {
       type: String,
-      required: true,
       trim: true,
     },
     taskDescription: {
@@ -18,7 +17,6 @@ const taskSchema = new mongoose.Schema({
     },
     taskGoalHours: {
       type: Number,
-      required: true,
     },
   }
 );

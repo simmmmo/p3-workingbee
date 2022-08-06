@@ -269,7 +269,6 @@ const postData = async (form) => {
             onChange={handleChange} 
             value={form.description} 
             width="sm:col-span-6"
-            required
           />
            <Input 
             type="url" 
@@ -278,7 +277,6 @@ const postData = async (form) => {
             onChange={handleChange} 
             value={form.eventImage} 
             width="sm:col-span-6"
-            required
           />
           {/* <UploadImage 
           name="eventImage" 

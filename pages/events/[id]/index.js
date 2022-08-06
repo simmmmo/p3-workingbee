@@ -2,9 +2,9 @@ import { useState, useEffect, useRef} from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import dbConnect from '../../../lib/dbConnect';
-import Event from '../../../models/Event';
-import Task from '../../../models/Task';
-import Donation from '../../../models/Donation';
+// import Event from '../../../models/Event';
+// import Task from '../../../models/Task';
+// import Donation from '../../../models/Donation';
 // import eventData from '../../../data/eventData';
 import PageTitle from '../../../components/PageTitle';
 import EventCard from '../../../components/Cards/EventCard';
@@ -12,29 +12,31 @@ import GoalCard from '../../../components/Cards/GoalCard';
 import TaskCard from '../../../components/Cards/TaskCard';
 import LocationCard from '../../../components/Cards/LocationCard';
 import { CheckIcon } from '@heroicons/react/outline'
+import { client } from '../../_app';
+import { gql, useQuery } from '@apollo/client';
 
 /* Allows you to view event card info and delete event card*/
 const EventPage = ({ event, tasks, donations }) => {
-  const router = useRouter()
-  const [message, setMessage] = useState('')
-  const handleDelete = async () => {
-    const eventID = router.query.id
+  // const router = useRouter()
+  // const [message, setMessage] = useState('')
+  // const handleDelete = async () => {
+  //   const eventID = router.query.id
 
-    try {
-      await fetch(`/api/events/${eventID}`, {
-        method: 'Delete',
-      })
-      router.push('/')
-    } catch (error) {
-      setMessage('Failed to delete the event.')
-    }
-  }
+  //   try {
+  //     await fetch(`/api/events/${eventID}`, {
+  //       method: 'Delete',
+  //     })
+  //     router.push('/')
+  //   } catch (error) {
+  //     setMessage('Failed to delete the event.')
+  //   }
+  // }
 
 
 
   return (
 
-    <div key={event._id} className="min-h-full">
+  <div key={event._id} className="min-h-full">
     <PageTitle title={event.title}  />
 
       <main className="mt-10 pb-8">
@@ -103,14 +105,14 @@ const EventPage = ({ event, tasks, donations }) => {
               mapLong={event.long} 
               mapLat={event.lat}
             />
-            <div>  
+            {/* <div>  
               <Link href="/events/[id]/edit" as={`/events/${event._id}/edit`}>
               <button className="btn edit">Edit</button>
             </Link>
             <button className="btn delete" onClick={handleDelete}>
               Delete
             </button>
-            </div>
+            </div> */}
             </div>
           </div>
         </div>
@@ -127,41 +129,97 @@ export async function getServerSideProps({ params }) {
   // 3. Call the GraphQL API with the taskId to get the donations
   // 4. Return event, tasks and donations as props
 
-
+  
   await dbConnect()
+
   // console.log(params)
-  const event = await Event.findById(params.id).lean()
-  event._id = event._id.toString()
+  const queryArguments = `"${params.id}"`;
+  // const eventId = params.id
+  // console.log({eventId})
+  const { data } = await client.query({
+    query: gql`
+    {
+      getEventById(eventId: ${queryArguments}) {
+        _id
+        title
+        subTitle
+        organisationName
+        category
+        date
+        startTime
+        endTime
+        eventImage
+        locationName
+        address
+        suburb
+        state
+        postcode
+        lat
+        long
+        link
+        description
+        createdBy
+      }
+      getTasksByEventId(taskEventId: ${queryArguments}) {
+        _id
+        eventId
+        taskTitle
+        taskDescription
+        taskGoalHours
+      }
+      getDonationsByEventId(donationsEventId: ${queryArguments}) {
+        _id
+        taskId
+        userId
+        donationHours
+        eventId
+      }
+    }
+  `
+})
+console.log({data})
 
-  const result = await Task.find({ eventId: params.id })
 
-  const allDonations = await Donation.find({})
 
-  const donationsByEvent = await Donation.find({ eventId: params.id })
+// const event = data?.GetEventById || [];
+
+
+// console.log({event})
+  // const event = await Event.findById(params.id).lean()
+  // event._id = event._id.toString()
+
+  // const result = await Task.find({ eventId: params.id })
+
+  // const allDonations = await Donation.find({})
+
+  // const donationsByEvent = await Donation.find({ eventId: params.id })
   // const donationsByTask = await Donation.find({ eventId: params.id })
   // fetch('/api/events/${params.id}')
 
   // const result = await Task.findById(eventId.params).lean()
 
-  const tasks = result.map((doc) => {
-    const task = doc.toObject()
-    task._id = task._id.toString()
-    task.eventId = task.eventId.toString()
-    return task
-  })
+  // const tasks = result.map((doc) => {
+  //   const task = doc.toObject()
+  //   task._id = task._id.toString()
+  //   task.eventId = task.eventId.toString()
+  //   return task
+  // })
 
-  const donations = donationsByEvent.map((doc) => {
-    const donation = doc.toObject()
-    donation._id = donation._id.toString()
-    donation.userId = donation.userId.toString()
-    donation.taskId = donation.taskId.toString()
-    donation.eventId = donation.eventId.toString()
-    return donation
-  })
+  // const donations = donationsByEvent.map((doc) => {
+  //   const donation = doc.toObject()
+  //   donation._id = donation._id.toString()
+  //   donation.userId = donation.userId.toString()
+  //   donation.taskId = donation.taskId.toString()
+  //   donation.eventId = donation.eventId.toString()
+  //   return donation
+  // })
 
   // const task = await Task.findById(params.eventId).lean()
-  console.log({ donations })
-  return { props: { event, tasks, donations } }
+  // console.log({ donations })
+  const donationByTask = data?.GetEventById || [];
+
+
+  return { props: { event: data.getEventById,  tasks: data.getTasksByEventId, donations: data.getDonationsByEventId } }
 }
 
 export default EventPage

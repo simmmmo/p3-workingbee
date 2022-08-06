@@ -3,28 +3,24 @@ import mongoose from 'mongoose'
 const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
-    required: [true, 'Please provide your first name.'],
+    // required: [true, 'Please provide your first name.'],
     trim: true,
   },
   lastName: {
     type: String,
-    required: [true, 'Please provide your last name.'],
+    // required: [true, 'Please provide your last name.'],
     trim: true,
   },
   phone: {
     type: String,
-    required: [true, 'Please provide your phone number.'],
+    // required: [true, 'Please provide your phone number.'],
     unique: true,
   },     
   email: {
     type: String,
-    required: [true, 'Please provide your phone email.'],
+    // required: [true, 'Please provide your phone email.'],
     unique: true,
     match: [/.+@.+\..+/, 'Must use a valid email address'],
-  },
-  dateOfJoin: {
-    type: Date,
-    default: Date(),
   },
   description: {
     type: String,
@@ -32,7 +28,7 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    // required: true,
     minlength: 5,
   },
  },
