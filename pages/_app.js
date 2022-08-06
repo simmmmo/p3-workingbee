@@ -3,11 +3,14 @@ import '../styles/globals.css'
 import '../css/style.css'
 import '../css/form.css'
 
+// import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
 import Head from 'next/head'
 import Link from 'next/link'
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+
 
 
 function MyApp({ Component, pageProps }) {

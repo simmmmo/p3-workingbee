@@ -1,167 +1,74 @@
-import { useState, useEffect, useRef} from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import dbConnect from '../../../lib/dbConnect';
-import Event from '../../../models/Event';
-import Task from '../../../models/Task';
-import Donation from '../../../models/Donation';
-// import eventData from '../../../data/eventData';
-import PageTitle from '../../../components/PageTitle';
-import EventCard from '../../../components/Cards/EventCard';
-import GoalCard from '../../../components/Cards/GoalCard';
-import TaskCard from '../../../components/Cards/TaskCard';
-import LocationCard from '../../../components/Cards/LocationCard';
-import { CheckIcon } from '@heroicons/react/outline'
+import dbConnect from '../lib/dbConnect'
+import Event from '../models/Event'
+import Hero from '../components/Hero';
+import EventList from '../components/EventList';
+import Link from 'next/link'
 
-/* Allows you to view event card info and delete event card*/
-const EventPage = ({ event, tasks, donations }) => {
-  const router = useRouter()
-  const [message, setMessage] = useState('')
-  const handleDelete = async () => {
-    const eventID = router.query.id
+const Index = ({ events }) => (
+  
+  <>
+    <Hero />
+      <EventList>
+        {events.map((event) => (
+                <div key={event._id} className='flex flex-col rounded-lg shadow-lg overflow-hidden'>
+                  <div className='flex-shrink-0'>
+                    <img className='h-48 w-full object-cover' src={event.eventImage} alt='' />
+                  </div>
+                  <div className='flex-1 bg-white p-6 flex flex-col justify-between'>
+                    <div className='flex-1'>
+                      <p className='text-sm font-medium text-indigo-600'>
+                        <a href={event.category} className='hover:underline'>
+                          {event.category}
+                        </a>
+                      </p>
+                      <a href={event._id} className='block mt-2'>
+                        <p className='text-xl font-semibold text-gray-900'>{event.title}</p>
+                        <p className='mt-3 text-base text-gray-500 max-w-prose ...'>{event.description}</p>
+                      </a>
+                    </div>
+                    <div className='mt-6 flex items-center'>
+                      <div className='flex-shrink-0'>
+                        <a href={event._id}>
+                          <span className='sr-only'>{event.organisationName}</span>
+                          <img className='h-10 w-10 rounded-full' src="#" alt='' />
+                        </a>
+                      </div>
+                      <div className='ml-3'>
+                      <Link href="/events/[id]" as={`/events/${event._id}`}>
+                        <p className='text-sm font-medium text-gray-900'>
+                          View
+                          {/* <a href={event._id} className='hover:underline'>
+                            {event._id}
+                          </a> */}
+                        </p>
+                        </Link>
+                        <div className='flex space-x-1 text-sm text-gray-500'>
+                          <time dateTime={event.date}>{event.date}</time>
+                          <span aria-hidden='true'>&middot;</span>
+                          <span>{event.startTime}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+        </EventList>
+  </>
+)
 
-    try {
-      await fetch(`/api/events/${eventID}`, {
-        method: 'Delete',
-      })
-      router.push('/')
-    } catch (error) {
-      setMessage('Failed to delete the event.')
-    }
-  }
-
-
-
-  return (
-
-    <div key={event._id} className="min-h-full">
-    <PageTitle title={event.title}  />
-
-      <main className="mt-10 pb-8">
-    
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-          {/* <h1 className="sr-only">Page title</h1> */}
-
-          <div className="grid grid-cols-1 gap-4 items-start lg:grid-cols-3 lg:gap-8">
-            {/* Left column */}
-            <div className="grid grid-cols-1 gap-4 lg:col-span-2">
-              <EventCard
-                title={event.title}  
-                subTitle={event.subTitle}  
-                organisationName={event.organisationName} 
-                category={event.category}  
-                date={event.date}  
-                startTime={event.startTime}  
-                endTime={event.endTime}  
-                eventImage={event.eventImage}  
-                description={event.description}
-                locationName={event.locationName} 
-                suburb={event.suburb} 
-                postcode={event.postcode}               
-              >
-            {donations.map((donation) => (
-              <div key={donation._id} className="relative">
-                
-               <dd className="mt-2 ml-9 text-base text-gray-500">Time donated: {donation.donationHours}
-                hrs</dd>
-                <dd className="mt-2 ml-9 text-base text-gray-500">Contributors: {donation.lenth}
-
-                </dd>
-              </div>
-            ))}
-
-            {tasks.map((task) => (
-              <div key={task._id} className="relative">
-                <dt>
-                  <CheckIcon className="absolute h-6 w-6 text-gray-300" aria-hidden="true" />
-                  <p className="ml-9 text-lg leading-6 font-medium text-gray-900">{task.taskTitle}</p>
-                </dt>
-                <dd className="mt-2 ml-9 text-base text-gray-500">{task.taskDescription}</dd>
-                <dd className="mt-2 ml-9 text-base text-gray-500">Estimated time needed: {task.taskGoalHours}hrs</dd>
-                <dd className="mt-2 ml-9 text-base text-gray-500">Time donated: 
-                hrs</dd>
-                <dd className="mt-2 ml-9 text-base text-gray-500">Contributors: 
-
-                </dd>
-              </div>
-            ))}
-              </EventCard>
-              <TaskCard 
-                eventId={event._id}  
-              />
-            </div>
-            {/* Right column */}
-            <div className="grid grid-cols-1 gap-4">
-            <GoalCard 
-            taskData={tasks}
-            eventId={event._id}               
-            />
-            <LocationCard 
-              name={event.locationName} 
-              address={event.address} 
-              mapLink={event.link} 
-              mapLong={event.long} 
-              mapLat={event.lat}
-            />
-            <div>  
-              <Link href="/events/[id]/edit" as={`/events/${event._id}/edit`}>
-              <button className="btn edit">Edit</button>
-            </Link>
-            <button className="btn delete" onClick={handleDelete}>
-              Delete
-            </button>
-            </div>
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
-
-
-  )
-}
-
-export async function getServerSideProps({ params }) {
-  // 1. Call events API with params.id and get the event
-  // 2. Call the tasks API with the eventId to get the tasks
-  // 3. Call the GraphQL API with the taskId to get the donations
-  // 4. Return event, tasks and donations as props
-
-
+/* Retrieves event(s) data from mongodb database */
+export async function getServerSideProps() {
   await dbConnect()
-  // console.log(params)
-  const event = await Event.findById(params.id).lean()
-  event._id = event._id.toString()
 
-  const result = await Task.find({ eventId: params.id })
-
-  const allDonations = await Donation.find({})
-
-  const donationsByEvent = await Donation.find({ eventId: params.id })
-  // const donationsByTask = await Donation.find({ eventId: params.id })
-  // fetch('/api/events/${params.id}')
-
-  // const result = await Task.findById(eventId.params).lean()
-
-  const tasks = result.map((doc) => {
-    const task = doc.toObject()
-    task._id = task._id.toString()
-    task.eventId = task.eventId.toString()
-    return task
+  /* find all the data in our database */
+  const result = await Event.find({})
+  const events = result.map((doc) => {
+    const event = doc.toObject()
+    event._id = event._id.toString()
+    return event
   })
 
-  const donations = donationsByEvent.map((doc) => {
-    const donation = doc.toObject()
-    donation._id = donation._id.toString()
-    donation.userId = donation.userId.toString()
-    donation.taskId = donation.taskId.toString()
-    donation.eventId = donation.eventId.toString()
-    return donation
-  })
-
-  // const task = await Task.findById(params.eventId).lean()
-  console.log({ donations })
-  return { props: { event, tasks, donations } }
+  return { props: { events: events } }
 }
 
-export default EventPage
+export default Index

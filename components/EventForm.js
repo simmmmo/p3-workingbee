@@ -187,10 +187,10 @@ const postData = async (form) => {
   /* Makes sure pet info is filled for pet name, owner name, species, and image url*/
   const formValidate = () => {
     let err = {}
-    if (!form.title) err.title = 'Title is required'
-    if (!form.organisationName) err.organisationName = 'Orgainisation is required'
-    if (!form.description) err.description = 'Description is required'
-    if (!form.eventImage) err.eventImage = 'Image URL is required'
+    // if (!form.title) err.title = 'Title is required'
+    // if (!form.organisationName) err.organisationName = 'Orgainisation is required'
+    // if (!form.description) err.description = 'Description is required'
+    // if (!form.eventImage) err.eventImage = 'Image URL is required'
     return err
   }
 
@@ -269,7 +269,6 @@ const postData = async (form) => {
             onChange={handleChange} 
             value={form.description} 
             width="sm:col-span-6"
-            required
           />
            <Input 
             type="url" 
@@ -278,7 +277,6 @@ const postData = async (form) => {
             onChange={handleChange} 
             value={form.eventImage} 
             width="sm:col-span-6"
-            required
           />
           {/* <UploadImage 
           name="eventImage" 

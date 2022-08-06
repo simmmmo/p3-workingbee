@@ -1,17 +1,15 @@
 import mongoose from 'mongoose'
 
 const User = require('./User');
-const Category = require('./Category');
+// const Category = require('./Category');
 
 const eventSchema = new mongoose.Schema({
     title: {
       type: String,
-      required: true,
       trim: true,
     },
     subTitle: {
       type: String,
-      required: true,
       trim: true,
     },
     organisationName: {
@@ -29,15 +27,12 @@ const eventSchema = new mongoose.Schema({
     // },
     date: {
       type: String,
-      required: true,
     },
     startTime: {
       type: String,
-      required: true,
     },
     endTime: {
       type: String,
-      required: true,
       trim: true,
     },
     eventImage: {

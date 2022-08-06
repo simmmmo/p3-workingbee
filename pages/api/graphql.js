@@ -1,25 +1,25 @@
-import cors from 'micro-cors';
-import { ApolloServer } from 'apollo-server-micro'
-import { resolvers, typeDefs } from '../../schemas'
-import connectDb from '../../lib/dbConnect'
-import { send } from 'micro';
+import { gql, ApolloServer } from "apollo-server-nextjs";
+import { resolvers, typeDefs } from '../../schemas';
+import dbConnect from '../../lib/dbConnect'
 
-connectDb()
-
-const corsHandler = cors();
+dbConnect()
 
 export const config = {
   api: {
     bodyParser: false,
   },
-}
+};
 
-const apolloServer = new ApolloServer({ resolvers, typeDefs });
+const server = new ApolloServer({
+  resolvers,
+  typeDefs,
+});
 
-module.exports = apolloServer.start().then(() => {
-  const handler = apolloServer.createHandler({ 
-    path: '/api/graphql',
-  });
-
-  return corsHandler((req, res) => req.method === 'OPTIONS' ? send(res, 200, 'ok') : handler(req, res))
+export default server.createHandler({
+  expressGetMiddlewareOptions: {
+    cors: {
+      origin: "*",
+      credentials: true,
+    },
+  },
 });

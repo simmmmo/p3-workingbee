@@ -1,54 +1,55 @@
-const { User, Event, Task, Donation } = require('../models');
+// const { Donation } = require('../models');
+import Donation from '../models/Donation';
+// const resolvers = {
+//   Query: {
+//     getEvents: async () => {
+//       try {
+//         const events = await Event.find({});
 
+//         return events
+//       } catch (err) {
+//         console.log(err)
+//       }
+//     },
+//   },
+
+//   Mutation: {
+//     newEvent: async (_, { input }) => {
+//       try {
+//         const event = new Event(input)
+
+//         const result = await event.save()
+
+//         return result
+//       } catch (err) {
+//         console.log(err)
+//       }
+//     },
+//   },
+// }
+
+// Provide resolver functions for your schema fields
 const resolvers = {
   Query: {
-    // Events
-    getEvents: async () => {
-      try {
-        const events = await Event.find({}) 
-
-        return events
-      } catch (err) {
-        console.log(err)
-      }
+    getUser: () => {
+      return {
+        id: "Foo",
+      };
     },
 
-    getEventById: async (_, { _id }) => {
+    getDonations: async () => {
       try {
-        const event = await Event.findById(_id)
 
-        return event
-      } catch (err) {
-        console.log(err)
-      }
-    },
+        const donations = await Donation.find({});
 
-    // Donations
-    getDonationsByTask: async (_, { _id }) => {
-      try {
-        const donation = await Donation.findById(_id)
+        console.log({ donations })
 
-        return donation
+        return donations
       } catch (err) {
         console.log(err)
       }
     },
   },
+};
 
-  Mutation: {
-    // donation
-    newDonation: async (_, { input }) => {
-      try {
-        const donation = new Donation(input)
-
-        const result = await donation.save()
-
-        return result
-      } catch (err) {
-        console.log(err)
-      }
-    },   
-  },
-}
-
-module.exports = resolvers
+export default resolvers
