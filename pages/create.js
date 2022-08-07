@@ -32,7 +32,9 @@ export default function NewEvent() {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </p>
         </div>
+        <>
         <EventForm formId="add-event-form" eventForm={eventForm}/>
+        </>
       </div>
   </>
   )

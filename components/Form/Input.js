@@ -19,4 +19,6 @@ const TextField = React.forwardRef(({ name, label, onChange, type, value, placeh
   </div>
 ));
 
+TextField.displayName = 'TextField';
+
 export default TextField;
