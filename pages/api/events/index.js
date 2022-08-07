@@ -1,34 +1,34 @@
-import dbConnect from '../../../lib/dbConnect'
-import Event from '../../../models/Event'
-import Task from '../../../models/Task'
+import dbConnect from "../../../lib/dbConnect";
+import Event from "../../../models/Event";
+import Task from "../../../models/Task";
 
 export default async function handler(req, res) {
-  const { method } = req
+  const { method } = req;
 
-  await dbConnect()
+  await dbConnect();
 
   switch (method) {
-    case 'GET':
+    case "GET":
       try {
-        const events = await Event.find({}) /* find all the data in our database */
-        res.status(200).json({ success: true, data: events })
+        const events = await Event.find(
+          {}
+        ); /* find all the data in our database */
+        res.status(200).json({ success: true, data: events });
       } catch (error) {
-        res.status(400).json({ success: false })
+        res.status(400).json({ success: false });
       }
-      break
-    case 'POST':
+      break;
+    case "POST":
       try {
         // const { task, ...event } = req.body
 
         // const newEvent = await Event.create(
         //   event
-        // ) 
+        // )
         // const newTask = await Task.create(
-        //   task 
-        // ) 
-        const event = await Event.create(
-          req.body
-        )
+        //   task
+        // )
+        const event = await Event.create(req.body);
         /* create a new model in the database */
 
         // console.log({ newEvent })
@@ -38,14 +38,14 @@ export default async function handler(req, res) {
         // const newTask = await Task.create({ ...task, eventId: event._id });
 
         // console.log({ task });
-        res.status(201).json({ success: true, data: event })
+        res.status(201).json({ success: true, data: event });
         // res.status(201).json({ success: true, data: { ...newEvent, task: {} } })
       } catch (error) {
-        res.status(400).json({ success: false, error })
+        res.status(400).json({ success: false, error });
       }
-      break
+      break;
     default:
-      res.status(400).json({ success: false })
-      break
+      res.status(400).json({ success: false });
+      break;
   }
 }

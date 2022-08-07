@@ -1,35 +1,34 @@
-import TaskForm from '../TaskForm';
+import TaskForm from "../TaskForm";
 
-export default function AddTaskCard({eventId}) {
- 
+export default function AddTaskCard({ eventId }) {
   const taskForm = {
-    taskTitle: '',
-    taskDescription: '',
-    taskGoalHours: '',
+    taskTitle: "",
+    taskDescription: "",
+    taskGoalHours: "",
     eventId: eventId,
-  }
- 
+  };
+
   return (
-  <>
-<section aria-labelledby="add-tasks">
-      <h2 className="sr-only" id="add-tasks">
-        Add tasks
-      </h2>
-  <div className="rounded-lg bg-white overflow-hidden shadow">
-        <div className="p-6">
-          <div className="pt-4 sm:pt-4 lg:pt-4">
-          <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
-            <h3 className="text-2xl text-gray-900 font-extrabold tracking-tight sm:text-1xl">
-            Add a task
-            </h3>
-          <div className="mt-12 lg:mt-0">
-            <TaskForm formId="add-task-form" taskForm={taskForm}/>
+    <>
+      <section aria-labelledby="add-tasks">
+        <h2 className="sr-only" id="add-tasks">
+          Add tasks
+        </h2>
+        <div className="rounded-lg bg-white overflow-hidden shadow">
+          <div className="p-6">
+            <div className="pt-4 sm:pt-4 lg:pt-4">
+              <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
+                <h3 className="text-2xl text-gray-900 font-extrabold tracking-tight sm:text-1xl">
+                  Add a task
+                </h3>
+                <div className="mt-12 lg:mt-0">
+                  <TaskForm formId="add-task-form" taskForm={taskForm} />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-</>
+      </section>
+    </>
   );
-};
+}

@@ -1,44 +1,44 @@
 const categoryData = [
   {
-    title: 'Local Community',
+    title: "Local Community",
     defaultImage: "#",
     link: "#",
   },
   {
-    title: 'Medical and Health',
+    title: "Medical and Health",
     defaultImage: "#",
     link: "#",
   },
   {
-    title: 'Emergency Relief',
+    title: "Emergency Relief",
     defaultImage: "#",
     link: "#",
   },
   {
-    title: 'Pet and wildlife',
+    title: "Pet and wildlife",
     defaultImage: "#",
     link: "#",
   },
   {
-    title: 'Education',
+    title: "Education",
     defaultImage: "#",
     link: "#",
   },
   {
-    title: 'Nonprofits and Charities',
+    title: "Nonprofits and Charities",
     defaultImage: "#",
     link: "#",
   },
   {
-    title: 'Art and Music',
+    title: "Art and Music",
     defaultImage: "#",
     link: "#",
   },
   {
-    title: 'Other',
+    title: "Other",
     defaultImage: "#",
     link: "#",
-  }
-]
+  },
+];
 
-export default categoryData
+export default categoryData;

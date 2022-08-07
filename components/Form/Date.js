@@ -1,24 +1,28 @@
-import React from 'react';
-import FormLabel from './FormLabel';
-import 'tw-elements';
+import React from "react";
+import FormLabel from "./FormLabel";
+import "tw-elements";
 
 const DateField = ({ name, label, onChange, type, value, width }) => (
   <div className="flex items-center justify-center">
-  <div className="datepicker relative form-floating mb-3 xl:w-96">
-  <FormLabel name={name} label={label} />
-    <input
-      type={type}
-      name={name}
-      id={name}
-      onChange={onChange}
-      value={value}
-      className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-      placeholder="Select a date" />
-      <label htmlFor="floatingInput" className="block text-sm font-medium text-gray-700">
-      Select a date
+    <div className="datepicker relative form-floating mb-3 xl:w-96">
+      <FormLabel name={name} label={label} />
+      <input
+        type={type}
+        name={name}
+        id={name}
+        onChange={onChange}
+        value={value}
+        className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+        placeholder="Select a date"
+      />
+      <label
+        htmlFor="floatingInput"
+        className="block text-sm font-medium text-gray-700"
+      >
+        Select a date
       </label>
+    </div>
   </div>
-</div>
 );
 
 export default DateField;
