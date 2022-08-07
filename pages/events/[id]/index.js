@@ -1,19 +1,19 @@
-import { useState, useEffect, useRef} from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import dbConnect from '../../../lib/dbConnect';
+import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import dbConnect from "../../../lib/dbConnect";
 // import Event from '../../../models/Event';
 // import Task from '../../../models/Task';
 // import Donation from '../../../models/Donation';
 // import eventData from '../../../data/eventData';
-import PageTitle from '../../../components/PageTitle';
-import EventCard from '../../../components/Cards/EventCard';
-import GoalCard from '../../../components/Cards/GoalCard';
-import AddTaskCard from '../../../components/Cards/AddTaskCard';
-import LocationCard from '../../../components/Cards/LocationCard';
-import { CheckIcon } from '@heroicons/react/outline'
-import { client } from '../../_app';
-import { gql, useQuery } from '@apollo/client';
+import PageTitle from "../../../components/PageTitle";
+import EventCard from "../../../components/Cards/EventCard";
+import GoalCard from "../../../components/Cards/GoalCard";
+import AddTaskCard from "../../../components/Cards/AddTaskCard";
+import LocationCard from "../../../components/Cards/LocationCard";
+import { CheckIcon } from "@heroicons/react/outline";
+import { client } from "../../_app";
+import { gql, useQuery } from "@apollo/client";
 
 /* Allows you to view event card info and delete event card*/
 const EventPage = ({ event, tasks, donations }) => {
@@ -32,15 +32,11 @@ const EventPage = ({ event, tasks, donations }) => {
   //   }
   // }
 
-
-
   return (
-
-  <div key={event._id} className="min-h-full">
-    <PageTitle title={event.title}  />
+    <div key={event._id} className="min-h-full">
+      <PageTitle title={event.title} />
 
       <main className="mt-10 pb-8">
-    
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
           {/* <h1 className="sr-only">Page title</h1> */}
 
@@ -48,64 +44,70 @@ const EventPage = ({ event, tasks, donations }) => {
             {/* Left column */}
             <div className="grid grid-cols-1 gap-4 lg:col-span-2">
               <EventCard
-                title={event.title}  
-                subTitle={event.subTitle}  
-                organisationName={event.organisationName} 
-                category={event.category}  
-                date={event.date}  
-                startTime={event.startTime}  
-                endTime={event.endTime}  
-                eventImage={event.eventImage}  
+                title={event.title}
+                subTitle={event.subTitle}
+                organisationName={event.organisationName}
+                category={event.category}
+                date={event.date}
+                startTime={event.startTime}
+                endTime={event.endTime}
+                eventImage={event.eventImage}
                 description={event.description}
-                locationName={event.locationName} 
-                suburb={event.suburb} 
-                postcode={event.postcode}               
+                locationName={event.locationName}
+                suburb={event.suburb}
+                postcode={event.postcode}
               >
-            {donations.map((donation) => (
-              <div key={donation._id} className="relative">
-                
-               <dd className="mt-2 ml-9 text-base text-gray-500">Time donated: {donation.donationHours}
-                hrs</dd>
-                <dd className="mt-2 ml-9 text-base text-gray-500">Contributors: {donation.lenth}
+                {donations.map((donation) => (
+                  <div key={donation._id} className="relative">
+                    <dd className="mt-2 ml-9 text-base text-gray-500">
+                      Time donated: {donation.donationHours}
+                      hrs
+                    </dd>
+                    <dd className="mt-2 ml-9 text-base text-gray-500">
+                      Contributors: {donation.lenth}
+                    </dd>
+                  </div>
+                ))}
 
-                </dd>
-              </div>
-            ))}
-
-            {tasks.map((task) => (
-              <div key={task._id} className="relative">
-                <dt>
-                  <CheckIcon className="absolute h-6 w-6 text-gray-300" aria-hidden="true" />
-                  <p className="ml-9 text-lg leading-6 font-medium text-gray-900">{task.taskTitle}</p>
-                </dt>
-                <dd className="mt-2 ml-9 text-base text-gray-500">{task.taskDescription}</dd>
-                <dd className="mt-2 ml-9 text-base text-gray-500">Estimated time needed: {task.taskGoalHours}hrs</dd>
-                <dd className="mt-2 ml-9 text-base text-gray-500">Time donated: 
-                hrs</dd>
-                <dd className="mt-2 ml-9 text-base text-gray-500">Contributors: 
-
-                </dd>
-              </div>
-            ))}
+                {tasks.map((task) => (
+                  <div key={task._id} className="relative">
+                    <dt>
+                      <CheckIcon
+                        className="absolute h-6 w-6 text-gray-300"
+                        aria-hidden="true"
+                      />
+                      <p className="ml-9 text-lg leading-6 font-medium text-gray-900">
+                        {task.taskTitle}
+                      </p>
+                    </dt>
+                    <dd className="mt-2 ml-9 text-base text-gray-500">
+                      {task.taskDescription}
+                    </dd>
+                    <dd className="mt-2 ml-9 text-base text-gray-500">
+                      Estimated time needed: {task.taskGoalHours}hrs
+                    </dd>
+                    <dd className="mt-2 ml-9 text-base text-gray-500">
+                      Time donated: hrs
+                    </dd>
+                    <dd className="mt-2 ml-9 text-base text-gray-500">
+                      Contributors:
+                    </dd>
+                  </div>
+                ))}
               </EventCard>
-              <AddTaskCard 
-                eventId={event._id}  
-              />
+              <AddTaskCard eventId={event._id} />
             </div>
             {/* Right column */}
             <div className="grid grid-cols-1 gap-4">
-            <GoalCard 
-            taskData={tasks}
-            eventId={event._id}               
-            />
-            <LocationCard 
-              name={event.locationName} 
-              address={event.address} 
-              mapLink={event.link} 
-              mapLong={event.long} 
-              mapLat={event.lat}
-            />
-            {/* <div>  
+              <GoalCard taskData={tasks} eventId={event._id} />
+              <LocationCard
+                name={event.locationName}
+                address={event.address}
+                mapLink={event.link}
+                mapLong={event.long}
+                mapLat={event.lat}
+              />
+              {/* <div>  
               <Link href="/events/[id]/edit" as={`/events/${event._id}/edit`}>
               <button className="btn edit">Edit</button>
             </Link>
@@ -118,10 +120,8 @@ const EventPage = ({ event, tasks, donations }) => {
         </div>
       </main>
     </div>
-
-
-  )
-}
+  );
+};
 
 export async function getServerSideProps({ params }) {
   // 1. Call events API with params.id and get the event
@@ -129,8 +129,7 @@ export async function getServerSideProps({ params }) {
   // 3. Call the GraphQL API with the taskId to get the donations
   // 4. Return event, tasks and donations as props
 
-  
-  await dbConnect()
+  await dbConnect();
 
   // console.log(params)
   const queryArguments = `"${params.id}"`;
@@ -175,16 +174,13 @@ export async function getServerSideProps({ params }) {
         eventId
       }
     }
-  `
-})
-console.log({data})
+  `,
+  });
+  console.log({ data });
 
+  // const event = data?.GetEventById || [];
 
-
-// const event = data?.GetEventById || [];
-
-
-// console.log({event})
+  // console.log({event})
   // const event = await Event.findById(params.id).lean()
   // event._id = event._id.toString()
 
@@ -218,8 +214,13 @@ console.log({data})
   // console.log({ donations })
   const donationByTask = data?.GetEventById || [];
 
-
-  return { props: { event: data.getEventById,  tasks: data.getTasksByEventId, donations: data.getDonationsByEventId } }
+  return {
+    props: {
+      event: data.getEventById,
+      tasks: data.getTasksByEventId,
+      donations: data.getDonationsByEventId,
+    },
+  };
 }
 
-export default EventPage
+export default EventPage;

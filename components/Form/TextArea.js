@@ -1,5 +1,5 @@
-import React from 'react';
-import FormLabel from './Label';
+import React from "react";
+import FormLabel from "./Label";
 
 const TextAreaField = ({ name, label, onChange, value, rows, width, help }) => (
   <div className={width}>

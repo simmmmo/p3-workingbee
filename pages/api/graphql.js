@@ -1,8 +1,8 @@
 import { gql, ApolloServer } from "apollo-server-nextjs";
-import { resolvers, typeDefs } from '../../schemas';
-import dbConnect from '../../lib/dbConnect'
+import { resolvers, typeDefs } from "../../schemas";
+import dbConnect from "../../lib/dbConnect";
 
-dbConnect()
+dbConnect();
 
 export const config = {
   api: {

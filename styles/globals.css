@@ -8,9 +8,9 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 a {
@@ -27,8 +27,6 @@ a {
 #map {
   height: 280px;
 }
-
-
 
 @media (prefers-color-scheme: dark) {
   html {

@@ -1,8 +1,8 @@
 // const { Donation } = require('../models');
-import Donation from '../models/Donation';
-import Event from '../models/Event';
-import Task from '../models/Task';
-import User from '../models/User';
+import Donation from "../models/Donation";
+import Event from "../models/Event";
+import Task from "../models/Task";
+import User from "../models/User";
 // const resolvers = {
 //   Query: {
 //     getEvents: async () => {
@@ -42,69 +42,63 @@ const resolvers = {
 
     getTasksByEventId: async (parent, { taskEventId }) => {
       try {
-
         const tasks = await Task.find({ eventId: taskEventId });
 
-        console.log({ tasks })
+        console.log({ tasks });
 
-        return tasks
+        return tasks;
       } catch (err) {
-        console.log(err)
+        console.log(err);
       }
     },
 
     getDonationsByEventId: async (parent, { donationsEventId }) => {
       try {
-
         const donations = await Donation.find({ eventId: donationsEventId });
 
-        console.log({ donations })
+        console.log({ donations });
 
-        return donations
+        return donations;
       } catch (err) {
-        console.log(err)
+        console.log(err);
       }
     },
 
     getDonationsByTaskId: async (parent, { donationsTaskId }) => {
       try {
-
         const donations = await Donation.find({ taskId: donationsTaskId });
 
-        console.log({ donations })
+        console.log({ donations });
 
-        return donations
+        return donations;
       } catch (err) {
-        console.log(err)
+        console.log(err);
       }
     },
 
-      getUserById: async (_, { userId }) => {
+    getUserById: async (_, { userId }) => {
       try {
+        const user = await User.findById(userId);
 
-        const user = await User.findById(userId)
+        console.log({ user });
 
-        console.log({ user })
-
-        return user
+        return user;
       } catch (err) {
-        console.log(err)
+        console.log(err);
       }
     },
 
     getEventById: async (_, { eventId }) => {
       try {
-
-        const event = await Event.findById(eventId)
+        const event = await Event.findById(eventId);
 
         // console.log({ event })
 
-        return event
+        return event;
       } catch (err) {
-        console.log(err)
+        console.log(err);
       }
     },
-
 
     // getUser: async (_, { userId }) => {
     //   const user = await User.findById(userId)
@@ -118,53 +112,49 @@ const resolvers = {
 
     getUsers: async () => {
       try {
-
         const users = await User.find({});
 
-        console.log({ users })
+        console.log({ users });
 
-        return users
+        return users;
       } catch (err) {
-        console.log(err)
+        console.log(err);
       }
     },
 
     getDonations: async () => {
       try {
-
         const donations = await Donation.find({});
 
-        console.log({ donations })
+        console.log({ donations });
 
-        return donations
+        return donations;
       } catch (err) {
-        console.log(err)
+        console.log(err);
       }
     },
 
     getEvents: async () => {
       try {
-
         const events = await Event.find({});
 
         // console.log({ events })
 
-        return events
+        return events;
       } catch (err) {
-        console.log(err)
+        console.log(err);
       }
     },
 
     getTasks: async () => {
       try {
-
         const tasks = await Task.find({});
 
-        console.log({ tasks })
+        console.log({ tasks });
 
-        return tasks
+        return tasks;
       } catch (err) {
-        console.log(err)
+        console.log(err);
       }
     },
   },
@@ -173,29 +163,29 @@ const resolvers = {
     // events
     newEvent: async (_, { input }) => {
       try {
-        const event = new Event(input)
+        const event = new Event(input);
 
-        const result = await event.save()
+        const result = await event.save();
 
-        return result
+        return result;
       } catch (err) {
-        console.log(err)
+        console.log(err);
       }
     },
     updateEvent: async (_, { id, input }) => {
-      let event = await Event.findById(id)
+      let event = await Event.findById(id);
 
       if (!event) {
-        throw new Error('Event not found')
+        throw new Error("Event not found");
       }
 
       event = await Event.findOneAndUpdate({ _id: id }, input, {
         new: true,
-      })
+      });
 
-      return event
+      return event;
     },
   },
 };
 
-export default resolvers
+export default resolvers;

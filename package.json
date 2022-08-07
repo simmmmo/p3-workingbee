@@ -14,6 +14,7 @@
   "dependencies": {
     "@apollo/client": "^3.6.9",
     "@apollo/sandbox": "^0.2.1",
+    "@auth0/nextjs-auth0": "^1.9.1",
     "@googlemaps/js-api-loader": "^1.14.3",
     "@heroicons/react": "^1.0.6",
     "@react-google-maps/api": "^2.12.1",

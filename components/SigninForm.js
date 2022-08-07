@@ -1,9 +1,8 @@
-import React, { useCallback, useState } from 'react';
-import Input from './Form/Input';
-import Form from './Form/Form';
-import PrimaryButton from './Form/PrimaryButton';
-import FormFooter from './Form/Footer';
-
+import React, { useCallback, useState } from "react";
+import Input from "./Form/Input";
+import Form from "./Form/Form";
+import PrimaryButton from "./Form/PrimaryButton";
+import FormFooter from "./Form/Footer";
 
 const Wrapper = ({ children }) => (
   <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -13,48 +12,48 @@ const Wrapper = ({ children }) => (
   </div>
 );
 
-export default function SigninForm () {
+export default function SigninForm() {
   const [form, setForm] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
   const handleChange = (e) => {
-    const target = e.target
-    const value = target.value
-    const name = target.name
+    const target = e.target;
+    const value = target.value;
+    const name = target.name;
 
     setForm({
       ...form,
       [name]: value,
-    })
-  }
+    });
+  };
 
   return (
     <Wrapper>
       <Form action="#" method="POST">
-        <Input 
-          type="email" 
-          name="email" 
-          label="Email address" 
-          onChange={handleChange} 
-          value={form.email} 
+        <Input
+          type="email"
+          name="email"
+          label="Email address"
+          onChange={handleChange}
+          value={form.email}
           width="sm:col-span-6"
         />
-        <Input 
-          type="password" 
-          name="password" 
-          label="Password" 
-          onChange={handleChange} 
-          value={form.password} 
+        <Input
+          type="password"
+          name="password"
+          label="Password"
+          onChange={handleChange}
+          value={form.password}
           width="sm:col-span-6"
         />
-        <PrimaryButton type="submit" label="Sign in"/>
+        <PrimaryButton type="submit" label="Sign in" />
       </Form>
-        <FormFooter 
-          text="Not a member?" 
-          linkText="Join WorkingBee today" 
-          link="join" 
-        /> 
+      <FormFooter
+        text="Not a member?"
+        linkText="Join WorkingBee today"
+        link="join"
+      />
     </Wrapper>
-  )
+  );
 }

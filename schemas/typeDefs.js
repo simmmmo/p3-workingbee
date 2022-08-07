@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-micro';
+import { gql } from "apollo-server-micro";
 
 const typeDefs = gql`
   type User {
@@ -139,57 +139,57 @@ const typeDefs = gql`
 //   getTasks: [Task]
 //   getUsers: [User]
 // }
-  
+
 //   type Mutation {
 //     newEvent(input: EventInput): Event
 //   }
 // `
 
- // type User {
-  //   _id: ID
-  //   firstName: String!
-  //   lastName: String!
-  //   phone: String!
-  //   description: String!
-  //   password: String!
-  // }
+// type User {
+//   _id: ID
+//   firstName: String!
+//   lastName: String!
+//   phone: String!
+//   description: String!
+//   password: String!
+// }
 
-  // type Task {
-  //   _id: ID
-  //   eventId: ID!
-  //   taskTitle: String!
-  //   taskDescription: String!
-  //   taskGoalHours: Float!
-  // }
+// type Task {
+//   _id: ID
+//   eventId: ID!
+//   taskTitle: String!
+//   taskDescription: String!
+//   taskGoalHours: Float!
+// }
 
-  // type Donation {
-  //   _id: ID
-  //   taskId: ID!
-  //   userId: ID!
-  //   donationHours: Float
-  //   eventId: ID!
-  // }
+// type Donation {
+//   _id: ID
+//   taskId: ID!
+//   userId: ID!
+//   donationHours: Float
+//   eventId: ID!
+// }
 
-  // input UserInput {
-  //   firstName: String!
-  //   lastName: String!
-  //   phone: String!
-  //   description: String!
-  //   password: String!
-  // }
+// input UserInput {
+//   firstName: String!
+//   lastName: String!
+//   phone: String!
+//   description: String!
+//   password: String!
+// }
 
-  // input TaskInput {
-  //   eventId: ID!
-  //   taskTitle: String!
-  //   taskDescription: String!
-  //   taskGoalHours: Float!
-  // }
+// input TaskInput {
+//   eventId: ID!
+//   taskTitle: String!
+//   taskDescription: String!
+//   taskGoalHours: Float!
+// }
 
-  // input DonationInput {
-  //   taskId: ID!
-  //   userId: ID!
-  //   donationHours: Float
-  //   eventId: ID!
-  // }
+// input DonationInput {
+//   taskId: ID!
+//   userId: ID!
+//   donationHours: Float
+//   eventId: ID!
+// }
 
-export default typeDefs
+export default typeDefs;

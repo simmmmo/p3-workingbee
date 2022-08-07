@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
 const Divider = () => (
   <div className="pt-8">
-    <div className="w-full border-t border-gray-200" /> 
+    <div className="w-full border-t border-gray-200" />
   </div>
 );
 
