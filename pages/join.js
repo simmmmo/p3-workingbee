@@ -1,6 +1,16 @@
 import SignupForm from "../components/SignupForm";
 
 export default function NewUser() {
+
+    const userForm = {
+      firstName: "",
+      lastName: "",
+      phone: "",
+      email: "",
+      description: "",
+      password: "",
+  };
+
   return (
     <>
       <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -17,7 +27,7 @@ export default function NewUser() {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </p>
         </div>
-        <SignupForm />
+        <SignupForm formId="add-user-form" userForm={userForm} /> 
       </div>
     </>
   );
