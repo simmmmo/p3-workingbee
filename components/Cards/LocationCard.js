@@ -31,5 +31,5 @@ export default function LocationCard({ name, address, mapLink, mapLong, mapLat }
       </div>
     </section>
 </>
-  )
-}
+  );
+};

@@ -177,7 +177,7 @@ const TaskForm = ({ eventId, formId, taskForm, forNewTask = true }) => {
               ))}
             </div>
     </>
-  )
-}
+  );
+};
 
 export default TaskForm;
