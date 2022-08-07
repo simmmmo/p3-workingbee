@@ -9,7 +9,7 @@ import dbConnect from '../../../lib/dbConnect';
 import PageTitle from '../../../components/PageTitle';
 import EventCard from '../../../components/Cards/EventCard';
 import GoalCard from '../../../components/Cards/GoalCard';
-import TaskCard from '../../../components/Cards/TaskCard';
+import AddTaskCard from '../../../components/Cards/AddTaskCard';
 import LocationCard from '../../../components/Cards/LocationCard';
 import { CheckIcon } from '@heroicons/react/outline'
 import { client } from '../../_app';
@@ -88,7 +88,7 @@ const EventPage = ({ event, tasks, donations }) => {
               </div>
             ))}
               </EventCard>
-              <TaskCard 
+              <AddTaskCard 
                 eventId={event._id}  
               />
             </div>

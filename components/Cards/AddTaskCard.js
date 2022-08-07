@@ -1,8 +1,6 @@
-import React, { useCallback, useState, useEffect, useRef } from 'react';
-
 import TaskForm from '../TaskForm';
 
-export default function TaskCard({eventId}) {
+export default function AddTaskCard({eventId}) {
  
   const taskForm = {
     taskTitle: '',
