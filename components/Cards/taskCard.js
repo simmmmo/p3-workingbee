@@ -2,8 +2,6 @@ import React, { useCallback, useState, useEffect, useRef } from 'react';
 
 import TaskForm from '../TaskForm';
 
-
-
 export default function TaskCard({eventId}) {
  
   const taskForm = {
@@ -12,7 +10,6 @@ export default function TaskCard({eventId}) {
     taskGoalHours: '',
     eventId: eventId,
   }
-
  
   return (
   <>
@@ -21,10 +18,8 @@ export default function TaskCard({eventId}) {
         Add tasks
       </h2>
   <div className="rounded-lg bg-white overflow-hidden shadow">
-
         <div className="p-6">
           <div className="pt-4 sm:pt-4 lg:pt-4">
-
           <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
             <h3 className="text-2xl text-gray-900 font-extrabold tracking-tight sm:text-1xl">
             Add a task
@@ -37,7 +32,6 @@ export default function TaskCard({eventId}) {
     </div>
   </div>
 </section>
-
 </>
   )
 }
