@@ -146,7 +146,7 @@ const TaskForm = ({ eventId, formId, taskForm, forNewTask = true }) => {
               </option>
             ))}
           </Select>
-
+          <div className="hidden">     
           <Input
             type="text"
             name="eventId"
@@ -156,6 +156,7 @@ const TaskForm = ({ eventId, formId, taskForm, forNewTask = true }) => {
             width="sm:col-span-6"
             required
           />
+          </div>
         </FieldContainer>
         <div className="pt-5">
           <div className="flex justify-end">

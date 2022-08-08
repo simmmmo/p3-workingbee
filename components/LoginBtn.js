@@ -5,15 +5,17 @@ export default function Component() {
   if (session) {
     return (
       <>
-        Signed in as {session.user.email} <br />
+       <div className="inline-block bg-indigo-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75">
         <button onClick={() => signOut()}>Sign out</button>
+        </div>
       </>
     );
   }
   return (
     <>
-      Not signed in <br />
+      <div className="inline-block bg-indigo-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75">
       <button onClick={() => signIn()}>Sign in</button>
+      </div>
     </>
   );
 }

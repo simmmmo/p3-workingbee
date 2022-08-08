@@ -331,7 +331,7 @@ export default function EventForm({ createdBy, formId, eventForm, forNewEvent = 
             width="sm:col-span-6"
           />
 
-          <div>
+          <div className="hidden">
             <Input
               type="text"
               name="suburb"
