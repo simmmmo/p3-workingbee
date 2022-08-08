@@ -111,7 +111,7 @@ export default function EventCard({
                 <h3 className="text-2xl text-gray-900 font-extrabold tracking-tight sm:text-1xl">
                   Tasks
                 </h3>
-                <div className="mt-12 lg:mt-0">
+                <div className="mt-12 lg:mt-4">
                   <dl className="space-y-10 sm:space-y-0 sm:grid l sm:gap-x-6 sm:gap-y-10 lg:gap-x-8">
                     {children}
                   </dl>

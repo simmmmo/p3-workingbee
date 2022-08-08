@@ -154,6 +154,7 @@ const DonationForm = ({
             </option>
           ))}
         </Select>
+        <div className="hidden">
         <Input
           type="text"
           name="userId"
@@ -170,6 +171,7 @@ const DonationForm = ({
           value={form.eventId}
           width="sm:col-span-6"
         />
+        </div>
         <div>
           <button
             type="submit"

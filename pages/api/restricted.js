@@ -1,5 +1,5 @@
-import { unstable_getServerSession } from "next-auth/next";
-import { authOptions } from "./auth/[...nextauth]";
+import { unstable_getServerSession } from "next-auth/next"
+import { authOptions } from "./auth/[...nextauth]"
 
 
 const restricted = async (req, res) => {
