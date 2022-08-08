@@ -11,7 +11,7 @@ const FormFooter = ({ text, linkText, link }) => (
         <p className="mt-1 text-center text-sm text-gray-600">
           <a
             href={link}
-            className="font-medium text-indigo-600 hover:text-indigo-500"
+            className="font-medium text-amber-500 hover:text-indigo-500"
           >
             {linkText}
           </a>

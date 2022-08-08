@@ -5,7 +5,7 @@ export default function Component() {
   if (session) {
     return (
       <>
-       <div className="inline-block bg-indigo-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75">
+       <div className="inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-slate-900 hover:bg-amber-500 hover:text-white">
         <button onClick={() => signOut()}>Sign out</button>
         </div>
       </>
@@ -13,7 +13,7 @@ export default function Component() {
   }
   return (
     <>
-      <div className="inline-block bg-indigo-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75">
+      <div className="inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-slate-900 hover:bg-amber-500 hover:text-white">
       <button onClick={() => signIn()}>Sign in</button>
       </div>
     </>

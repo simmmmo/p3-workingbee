@@ -12,9 +12,9 @@ const navigation = [
 
 export default function Header() {
   return (
-    <header className="bg-indigo-600">
+    <header className="bg-gray-900">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
-        <div className="w-full py-6 flex items-center justify-between border-b border-indigo-500 lg:border-none">
+        <div className="w-full py-6 flex items-center justify-between border-b border-white lg:border-none">
           <div className="flex items-center">
             <Link href="/" as={`/`}>
               <>
@@ -31,7 +31,7 @@ export default function Header() {
                 <a
                   key={link.name}
                   href={link.href}
-                  className="text-base font-medium text-white hover:text-indigo-50"
+                  className="text-base font-medium text-white hover:text-amber-400"
                 >
                   {link.name}
                 </a>
@@ -39,7 +39,7 @@ export default function Header() {
             </div>
           </div>
           <div className="ml-10 space-x-4">
-          <div className="inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-indigo-500 hover:bg-opacity-75">
+          <div className="inline-block bg-amber-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-white hover:text-gray-900">
              <Link href="/create" as={`/create`} >
               Create an event
           </Link>
@@ -56,7 +56,7 @@ export default function Header() {
             </Link> */}
             {/* <a
               href="/join"
-              className="inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-indigo-600 hover:bg-indigo-50"
+              className="inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-amber-500 hover:bg-indigo-50"
             >
               Join
             </a> */}
@@ -67,7 +67,7 @@ export default function Header() {
             <a
               key={link.name}
               href={link.href}
-              className="text-base font-medium text-white hover:text-indigo-50"
+              className="text-base font-medium text-white hover:text-amber-500"
             >
               {link.name}
             </a>

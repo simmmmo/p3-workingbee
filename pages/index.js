@@ -25,7 +25,7 @@ const Index = ({ events }) => {
             </div>
             <div className="flex-1 bg-white p-6 flex flex-col justify-between">
               <div className="flex-1">
-                <p className="text-sm font-medium text-indigo-600">
+                <p className="text-sm font-medium text-amber-500">
                 {event.date}
                 </p>
                 <a href={"/events/" + event._id} className="block mt-2">
@@ -40,7 +40,7 @@ const Index = ({ events }) => {
               <div className="mt-6">
               <a href={"/events/" + event._id} className="block mt-2">
                  <div>
-                <p className="text-sm font-medium text-indigo-600">
+                <p className="text-sm font-medium text-amber-500">
                   {event.category}
                 </p>
                 </div>
