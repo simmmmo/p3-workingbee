@@ -29,7 +29,7 @@ const typeDefs = gql`
     long: Float
     link: String
     description: String
-    createdBy: ID
+    createdBy: String
   }
 
   input EventInput {
@@ -50,13 +50,13 @@ const typeDefs = gql`
     long: Float
     link: String
     description: String
-    createdBy: ID
+    createdBy: String
   }
 
   type Donation {
     _id: ID
     taskId: ID
-    userId: ID
+    userId: String
     donationHours: Float
     eventId: ID
   }
@@ -79,6 +79,7 @@ const typeDefs = gql`
     getDonations: [Donation]
     getDonationsByEventId(donationsEventId: ID!): [Donation]
     getDonationsByTaskId(donationsTaskId: ID!): [Donation]
+    getEventsByUserId(createdById: String!): [Event]
   }
 
   type Mutation {

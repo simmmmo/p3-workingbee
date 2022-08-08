@@ -22,7 +22,7 @@ const Wrapper = ({ children }) => (
   </div>
 );
 
-export default function EventForm({ formId, eventForm, forNewEvent = true }) {
+export default function EventForm({ createdBy, formId, eventForm, forNewEvent = true }) {
   const router = useRouter();
   const contentType = "application/json";
   const [errors, setErrors] = useState({});
@@ -47,6 +47,7 @@ export default function EventForm({ formId, eventForm, forNewEvent = true }) {
     lat: eventForm.lat,
     long: eventForm.long,
     link: eventForm.link,
+    createdBy: createdBy,
   });
 
   const handleAddressUpdate = (newAddress) => {
@@ -372,6 +373,13 @@ export default function EventForm({ formId, eventForm, forNewEvent = true }) {
               label="link"
               onChange={handleChange}
               value={form.link}
+            />
+            <Input
+              type="text"
+              name="createdBy"
+              label="createdBy"
+              onChange={handleChange}
+              value={form.createdBy}
             />
           </div>
         </FieldContainer>

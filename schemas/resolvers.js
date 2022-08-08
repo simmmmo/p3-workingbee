@@ -76,6 +76,18 @@ const resolvers = {
       }
     },
 
+    getEventsByUserId: async (parent, { createdById }) => {
+      try {
+        const events = await Event.find({ createdBy: createdById });
+
+        console.log({ events });
+
+        return events;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
     getUserById: async (_, { userId }) => {
       try {
         const user = await User.findById(userId);

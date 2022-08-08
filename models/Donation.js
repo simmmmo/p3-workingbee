@@ -6,8 +6,7 @@ const donationSchema = new mongoose.Schema({
     ref: "Task",
   },
   userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    type: String,
   },
   donationHours: {
     type: Number,
