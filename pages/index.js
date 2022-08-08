@@ -26,7 +26,7 @@ const Index = ({ events }) => {
             <div className="flex-1 bg-white p-6 flex flex-col justify-between">
               <div className="flex-1">
                 <p className="text-sm font-medium text-indigo-600">
-                  {event.category}
+                {event.date}
                 </p>
                 <a href={"/events/" + event._id} className="block mt-2">
                   <p className="text-xl font-semibold text-gray-900">
@@ -37,28 +37,25 @@ const Index = ({ events }) => {
                   </p>
                 </a>
               </div>
-              <div className="mt-6 flex items-center">
-                <div className="flex-shrink-0">
-                  <a href={"/events/" + event._id}>
-                    <span className="sr-only">{event.organisationName}</span>
-                    <img className="h-10 w-10 rounded-full" src="#" alt="" />
-                  </a>
+              <div className="mt-6">
+              <a href={"/events/" + event._id} className="block mt-2">
+                 <div>
+                <p className="text-sm font-medium text-indigo-600">
+                  {event.category}
+                </p>
                 </div>
-                <div className="ml-3">
-                  <Link href="/events/[id]" as={`/events/${event._id}`}>
-                    <p className="text-sm font-medium text-gray-900">
-                      View
-                      {/* <a href={event._id} className='hover:underline'>
-                          {event._id}
-                        </a> */}
+                <div className="ml">
+                  <p className="text-sm font-medium text-gray-900">
+                    {event.locationName}
                     </p>
-                  </Link>
+
                   <div className="flex space-x-1 text-sm text-gray-500">
-                    <time dateTime={event.date}>{event.date}</time>
-                    <span aria-hidden="true">&middot;</span>
                     <span>{event.startTime}</span>
+                    <span aria-hidden="true"> - </span>
+                    <span>{event.endTime}</span>
                   </div>
                 </div>
+                </a>
               </div>
             </div>
           </div>
@@ -103,13 +100,6 @@ export async function getServerSideProps() {
   const events = data?.getEvents || [];
 
   console.log({ events });
-  /* find all the data in our database */
-  // const result = await Event.find({})
-  // const events = result.map((doc) => {
-  //   const event = doc.toObject()
-  //   event._id = event._id.toString()
-  //   return event
-  // })
 
   return { props: { events: events } };
 }

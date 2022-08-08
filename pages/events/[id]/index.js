@@ -2,10 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import dbConnect from "../../../lib/dbConnect";
-// import Event from '../../../models/Event';
-// import Task from '../../../models/Task';
-// import Donation from '../../../models/Donation';
-// import eventData from '../../../data/eventData';
 import PageTitle from "../../../components/PageTitle";
 import EventCard from "../../../components/Cards/EventCard";
 import GoalCard from "../../../components/Cards/GoalCard";
@@ -14,23 +10,11 @@ import LocationCard from "../../../components/Cards/LocationCard";
 import { CheckIcon } from "@heroicons/react/outline";
 import { client } from "../../_app";
 import { gql, useQuery } from "@apollo/client";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 /* Allows you to view event card info and delete event card*/
 const EventPage = ({ event, tasks, donations }) => {
-  // const router = useRouter()
-  // const [message, setMessage] = useState('')
-  // const handleDelete = async () => {
-  //   const eventID = router.query.id
-
-  //   try {
-  //     await fetch(`/api/events/${eventID}`, {
-  //       method: 'Delete',
-  //     })
-  //     router.push('/')
-  //   } catch (error) {
-  //     setMessage('Failed to delete the event.')
-  //   }
-  // }
+  const { data: session } = useSession();
 
   return (
     <div key={event._id} className="min-h-full">
@@ -95,11 +79,13 @@ const EventPage = ({ event, tasks, donations }) => {
                   </div>
                 ))}
               </EventCard>
-              <AddTaskCard eventId={event._id} />
+              {event.createdBy === session?.user.email ?
+             ( <AddTaskCard eventId={event._id} />) : null }
+             
             </div>
             {/* Right column */}
             <div className="grid grid-cols-1 gap-4">
-              <GoalCard taskData={tasks} eventId={event._id} />
+              <GoalCard taskData={tasks} eventId={event._id} userId={session?.user.email}/>
               <LocationCard
                 name={event.locationName}
                 address={event.address}
@@ -124,10 +110,6 @@ const EventPage = ({ event, tasks, donations }) => {
 };
 
 export async function getServerSideProps({ params }) {
-  // 1. Call events API with params.id and get the event
-  // 2. Call the tasks API with the eventId to get the tasks
-  // 3. Call the GraphQL API with the taskId to get the donations
-  // 4. Return event, tasks and donations as props
 
   await dbConnect();
 
@@ -178,40 +160,6 @@ export async function getServerSideProps({ params }) {
   });
   console.log({ data });
 
-  // const event = data?.GetEventById || [];
-
-  // console.log({event})
-  // const event = await Event.findById(params.id).lean()
-  // event._id = event._id.toString()
-
-  // const result = await Task.find({ eventId: params.id })
-
-  // const allDonations = await Donation.find({})
-
-  // const donationsByEvent = await Donation.find({ eventId: params.id })
-  // const donationsByTask = await Donation.find({ eventId: params.id })
-  // fetch('/api/events/${params.id}')
-
-  // const result = await Task.findById(eventId.params).lean()
-
-  // const tasks = result.map((doc) => {
-  //   const task = doc.toObject()
-  //   task._id = task._id.toString()
-  //   task.eventId = task.eventId.toString()
-  //   return task
-  // })
-
-  // const donations = donationsByEvent.map((doc) => {
-  //   const donation = doc.toObject()
-  //   donation._id = donation._id.toString()
-  //   donation.userId = donation.userId.toString()
-  //   donation.taskId = donation.taskId.toString()
-  //   donation.eventId = donation.eventId.toString()
-  //   return donation
-  // })
-
-  // const task = await Task.findById(params.eventId).lean()
-  // console.log({ donations })
   const donationByTask = data?.GetEventById || [];
 
   return {

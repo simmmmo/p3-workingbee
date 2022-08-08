@@ -11,6 +11,7 @@ import FieldContainer from "./Form/Container";
 const DonationForm = ({
   taskData,
   eventId,
+  userId,
   formId,
   donationForm,
   forNewDonation = true,

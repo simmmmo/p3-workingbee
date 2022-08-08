@@ -3,11 +3,14 @@ import React, { useCallback, useState, useEffect, useRef } from "react";
 import Select from "../Form/Select";
 import Form from "../Form/Form";
 import DonationForm from "../DonationForm";
+import { useSession, signIn, signOut } from "next-auth/react";
 
-export default function GoalCard({ taskData, eventId }) {
+export default function GoalCard({ taskData, eventId, userId }) {
+  const { data: session } = useSession();
+
   const donationForm = {
     taskId: "",
-    userId: "",
+    userId: userId,
     donationHours: "",
     eventId: eventId,
   };
@@ -50,56 +53,32 @@ export default function GoalCard({ taskData, eventId }) {
               </p>
             </div>
             <div className="flow-root mt-6">
-              <div>
+
+        {session?.user && (
+            <>     
+               <div>
                 <DonationForm
                   formId="add-donation-form"
                   taskData={taskData}
                   donationForm={donationForm}
+                  userId={userId}
                 />
-                {/* <Form action="#" method="POST">
-                    <Select 
-                        type="text" 
-                        name="taskContributeTitle" 
-                        label="Task" 
-                        onChange={handleChange} 
-                        value={form.taskContributeTitle} 
-                        width="sm:col-span-6"
-                      >
-                       {taskData.map((task) => (
-                         <option key={task._id} value={task._id}>{task.taskTitle}</option>
-                        ))}
-                    </Select>
-                    <Select 
-                      type="text" 
-                      name="taskContributeHours" 
-                      label="Donate Hours" 
-                      onChange={handleChange} 
-                      value={form.taskContributeHours} 
-                      width="sm:col-span-6"
-                    >
-                      {[1,2,3,4,5,6,7,8,9].map((number) => (
-                      <option key={number} value={number}>{number}</option>
-                    ))}
-                    </Select>
-                  <div>
-                    <button
-                      type="submit"
-                      className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                      Get Involved
-                    </button>
-                  </div>
-                  </Form> */}
               </div>
-            </div>
+            </>
+          )}
+                 
+
+        {!session && (
+          <>
             <div className="mt-6">
-              <a
-                href="#"
-                className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-              >
-                Sign in to contributor
-              </a>
+             <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" onClick={() => signIn()}>Sign in to contributor</button>
+             </div>
+           </>
+          )}
+              
+        
             </div>
+            
           </div>
         </div>
       </section>

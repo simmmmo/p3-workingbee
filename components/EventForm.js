@@ -3,6 +3,8 @@ import { usePlacesWidget } from "react-google-autocomplete";
 import { useRouter } from "next/router";
 import { mutate } from "swr";
 
+
+
 import Input from "./Form/Input";
 import Select from "./Form/Select";
 import TextArea from "./Form/TextArea";
@@ -20,7 +22,7 @@ const Wrapper = ({ children }) => (
   </div>
 );
 
-export default function EventForm({ formId, eventForm, forNewEvent = true }) {
+export default function EventForm({ createdBy, formId, eventForm, forNewEvent = true }) {
   const router = useRouter();
   const contentType = "application/json";
   const [errors, setErrors] = useState({});
@@ -36,7 +38,7 @@ export default function EventForm({ formId, eventForm, forNewEvent = true }) {
     endTime: eventForm.endTime,
     description: eventForm.description,
     eventImage: eventForm.eventImage,
-    // locationSearch: eventForm.locationSearch,
+    locationSearch: eventForm.locationSearch,
     locationName: eventForm.locationName,
     address: eventForm.address,
     suburb: eventForm.suburb,
@@ -45,9 +47,7 @@ export default function EventForm({ formId, eventForm, forNewEvent = true }) {
     lat: eventForm.lat,
     long: eventForm.long,
     link: eventForm.link,
-    // taskTitle: eventForm.taskTitle || '',
-    // taskDescription: eventForm.taskDescription,
-    // taskGoalHours: eventForm.taskGoalHours,
+    createdBy: createdBy,
   });
 
   const handleAddressUpdate = (newAddress) => {
@@ -58,31 +58,36 @@ export default function EventForm({ formId, eventForm, forNewEvent = true }) {
   const { ref, autocompleteRef } = usePlacesWidget({
     apiKey: process.env.NEXT_PUBLIC_API_KEY,
     options: {
-      types: ["address"],
+      types: [],
+      fields: ['place_id', 'name', 'address_components', 'geometry', 'formatted_address', 'url'],
       componentRestrictions: { country: "au" },
     },
     onPlaceSelected: (place = {}) => {
       console.log("1111 updating address");
-      const { address_components = [], formatted_address, geometry } = place;
+      const { address_components = [], formatted_address, geometry, name } = place;
       const getAddressComponent = (key) =>
         address_components.find((item) => item.types.includes(key))
           ?.long_name || "";
-
+      console.log({place})
       console.log(2222, {
+        locationName: place.name,
         address: formatted_address,
         lat: geometry.location.lat(),
         long: geometry.location.lng(),
-        postcode: getAddressComponent("postcode"),
+        postcode: getAddressComponent("postal_code"),
         suburb: getAddressComponent("locality"),
         state: getAddressComponent("administrative_area_level_1"),
+        link: place.url,
       });
       handleAddressUpdate({
+        locationName: place.name,
         address: formatted_address,
         lat: geometry.location.lat(),
         long: geometry.location.lng(),
-        postcode: getAddressComponent("postcode"),
+        postcode: getAddressComponent("postal_code"),
         suburb: getAddressComponent("locality"),
         state: getAddressComponent("administrative_area_level_1"),
+        link: place.url,
       });
     },
   });
@@ -298,7 +303,7 @@ export default function EventForm({ formId, eventForm, forNewEvent = true }) {
           headerText="Location Information"
           bodyText="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         >
-          {/* <Input 
+          <Input 
               ref={ref}
               placeholder='Start typing the location name or address' 
               type="text" 
@@ -306,7 +311,7 @@ export default function EventForm({ formId, eventForm, forNewEvent = true }) {
               label="Event Location" 
               id="location-find"
               width="sm:col-span-6"
-            /> */}
+            />
 
           <Input
             type="text"
@@ -368,6 +373,13 @@ export default function EventForm({ formId, eventForm, forNewEvent = true }) {
               label="link"
               onChange={handleChange}
               value={form.link}
+            />
+            <Input
+              type="text"
+              name="createdBy"
+              label="createdBy"
+              onChange={handleChange}
+              value={form.createdBy}
             />
           </div>
         </FieldContainer>
