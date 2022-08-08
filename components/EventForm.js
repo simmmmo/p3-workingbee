@@ -56,7 +56,7 @@ export default function EventForm({ createdBy, formId, eventForm, forNewEvent = 
   };
 
   const { ref, autocompleteRef } = usePlacesWidget({
-    apiKey: process.env.NEXT_PUBLIC_API_KEY,
+    apiKey: process.env.NEXT_PUBLIC_API_KEY_GOOGLE,
     options: {
       types: [],
       fields: ['place_id', 'name', 'address_components', 'geometry', 'formatted_address', 'url'],
@@ -426,7 +426,7 @@ export default function EventForm({ createdBy, formId, eventForm, forNewEvent = 
             </button>
             <button
               type="submit"
-              className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-amber-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Save
             </button>

@@ -8,7 +8,7 @@ export default function Hero() {
           <div className="px-4 lg:w-1/2 sm:px-8 xl:pr-16">
             <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
               <span className="block xl:inline">Get involved in a</span>{" "}
-              <span className="block text-indigo-600 xl:inline">
+              <span className="block text-amber-500 xl:inline">
                 community cause
               </span>
             </h1>
@@ -19,7 +19,8 @@ export default function Hero() {
             </p>
             <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
             <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
-              <div className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
+              <div className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-amber-500 hover:bg-amber-400 md:py-4 md:text-lg md:px-10">
+
               <button onClick={() => signIn()}>Join a cause</button>
                 
               </div>
@@ -27,7 +28,7 @@ export default function Hero() {
               <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
                 <a
                   href="create"
-                  className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"
+                  className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-amber-500 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"
                 >
                   Create a cause
                 </a>

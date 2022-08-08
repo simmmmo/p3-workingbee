@@ -66,7 +66,7 @@ const TaskForm = ({ eventId, formId, taskForm, forNewTask = true }) => {
         throw new Error(res.status);
       }
 
-      router.push("/");
+      router.push("#");
     } catch (error) {
       setMessage("Failed to add task");
     }
@@ -168,7 +168,7 @@ const TaskForm = ({ eventId, formId, taskForm, forNewTask = true }) => {
             </button>
             <button
               type="submit"
-              className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-amber-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Save
             </button>
