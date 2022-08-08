@@ -40,6 +40,7 @@ export default function Header() {
           </div>
           <div className="ml-10 space-x-4">
           <div className="inline-block bg-amber-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-white hover:text-gray-900">
+
              <Link href="/create" as={`/create`} >
               Create an event
           </Link>
