@@ -3,14 +3,10 @@ import { usePlacesWidget } from "react-google-autocomplete";
 import { useRouter } from "next/router";
 import { mutate } from "swr";
 
-
-
 import Input from "./Form/Input";
 import Select from "./Form/Select";
 import TextArea from "./Form/TextArea";
 import Form from "./Form/Form";
-import FormLabel from "./Form/Label";
-import UploadImage from "./Form/UploadImage";
 import FieldContainer from "./Form/Container";
 import categoryData from "../data/categoryData";
 
@@ -51,7 +47,7 @@ export default function EventForm({ createdBy, formId, eventForm, forNewEvent = 
   });
 
   const handleAddressUpdate = (newAddress) => {
-    console.log({ form, newAddress });
+    // console.log({ form, newAddress });
     setForm({ ...form, ...newAddress });
   };
 
@@ -68,7 +64,7 @@ export default function EventForm({ createdBy, formId, eventForm, forNewEvent = 
       const getAddressComponent = (key) =>
         address_components.find((item) => item.types.includes(key))
           ?.long_name || "";
-      console.log({place})
+      // console.log({place})
       console.log(2222, {
         locationName: place.name,
         address: formatted_address,
@@ -189,7 +185,6 @@ export default function EventForm({ createdBy, formId, eventForm, forNewEvent = 
     return false;
   };
 
-  /* Makes sure pet info is filled for pet name, owner name, species, and image url*/
   const formValidate = () => {
     let err = {};
     if (!form.title) err.title = "Title is required";
@@ -203,8 +198,94 @@ export default function EventForm({ createdBy, formId, eventForm, forNewEvent = 
   return (
     <Wrapper>
       <Form id={formId} onSubmit={handleSubmit}>
+     
+      <FieldContainer
+          headerText="Event Location"
+          bodyText="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        >
+          <Input 
+              ref={ref}
+              placeholder='Start typing the location name or address' 
+              type="text" 
+              name="locationSearch" 
+              label="Event Location" 
+              id="location-find"
+              width="sm:col-span-6"
+            />
+
+          <Input
+            type="text"
+            name="locationName"
+            label="Location Name"
+            onChange={handleChange}
+            value={form.locationName}
+            width="sm:col-span-6"
+          />
+
+          <Input
+            type="text"
+            name="address"
+            label="Location Address"
+            onChange={handleChange}
+            value={form.address}
+            width="sm:col-span-6"
+          />
+
+          <div className="hidden">
+            <Input
+              type="text"
+              name="suburb"
+              label="suburb"
+              onChange={handleChange}
+              value={form.suburb}
+            />
+            <Input
+              type="text"
+              name="state"
+              label="state"
+              onChange={handleChange}
+              value={form.state}
+            />
+            <Input
+              type="text"
+              name="postcode"
+              label="postcode"
+              onChange={handleChange}
+              value={form.postcode}
+            />
+            <Input
+              type="text"
+              name="lat"
+              label="lat"
+              onChange={handleChange}
+              value={form.lat}
+            />
+            <Input
+              type="text"
+              name="long"
+              label="long"
+              onChange={handleChange}
+              value={form.long}
+            />
+            <Input
+              type="text"
+              name="link"
+              label="link"
+              onChange={handleChange}
+              value={form.link}
+            />
+            <Input
+              type="text"
+              name="createdBy"
+              label="createdBy"
+              onChange={handleChange}
+              value={form.createdBy}
+            />
+          </div>
+        </FieldContainer>
+
         <FieldContainer
-          headerText="Event Information"
+          headerText="Event Details"
           bodyText="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         >
           <Input
@@ -298,124 +379,6 @@ export default function EventForm({ createdBy, formId, eventForm, forNewEvent = 
             width="sm:col-span-6"
           />       */}
         </FieldContainer>
-
-        <FieldContainer
-          headerText="Location Information"
-          bodyText="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        >
-          <Input 
-              ref={ref}
-              placeholder='Start typing the location name or address' 
-              type="text" 
-              name="locationSearch" 
-              label="Event Location" 
-              id="location-find"
-              width="sm:col-span-6"
-            />
-
-          <Input
-            type="text"
-            name="locationName"
-            label="Location Name"
-            onChange={handleChange}
-            value={form.locationName}
-            width="sm:col-span-6"
-          />
-
-          <Input
-            type="text"
-            name="address"
-            label="Location Address"
-            onChange={handleChange}
-            value={form.address}
-            width="sm:col-span-6"
-          />
-
-          <div className="hidden">
-            <Input
-              type="text"
-              name="suburb"
-              label="suburb"
-              onChange={handleChange}
-              value={form.suburb}
-            />
-            <Input
-              type="text"
-              name="state"
-              label="state"
-              onChange={handleChange}
-              value={form.state}
-            />
-            <Input
-              type="text"
-              name="postcode"
-              label="postcode"
-              onChange={handleChange}
-              value={form.postcode}
-            />
-            <Input
-              type="text"
-              name="lat"
-              label="lat"
-              onChange={handleChange}
-              value={form.lat}
-            />
-            <Input
-              type="text"
-              name="long"
-              label="long"
-              onChange={handleChange}
-              value={form.long}
-            />
-            <Input
-              type="text"
-              name="link"
-              label="link"
-              onChange={handleChange}
-              value={form.link}
-            />
-            <Input
-              type="text"
-              name="createdBy"
-              label="createdBy"
-              onChange={handleChange}
-              value={form.createdBy}
-            />
-          </div>
-        </FieldContainer>
-
-        {/* <FieldContainer headerText="Task Information" subHeaderText="Tack1" bodyText="Lorem ipsum dolor sit amet, consectetur adipiscing elit.">
-              <Input 
-                type="text" 
-                name="taskTitle" 
-                label="Task Title" 
-                onChange={handleChange} 
-                value={form.taskTitle} 
-                width="sm:col-span-6"
-              />
-
-              <TextArea 
-                rows="10" 
-                name="taskDescription" 
-                label="Task Description" 
-                onChange={handleChange} 
-                value={form.taskDescription} 
-                width="sm:col-span-6"
-              />
-              <Select 
-                type="number" 
-                name="taskGoalHours" 
-                label="Goal Amount in hours" 
-                onChange={handleChange} 
-                value={form.taskGoalHours} 
-                width="sm:col-span-6"
-                >
-                {[1,2,3,4,5,6,7,8,9].map((number) => (
-                  <option key={number} value={number}>{number}</option>
-                ))}
-
-              </Select>
-         </FieldContainer> */}
         <div className="pt-5">
           <div className="flex justify-end">
             <button
@@ -426,7 +389,7 @@ export default function EventForm({ createdBy, formId, eventForm, forNewEvent = 
             </button>
             <button
               type="submit"
-              className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-amber-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-amber-500 hover:bg-amber-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Save
             </button>

@@ -41,8 +41,12 @@ const EventPage = ({ event, tasks, donations }) => {
                 suburb={event.suburb}
                 postcode={event.postcode}
               >
-         
-
+         <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
+                <h3 className="text-2xl text-gray-900 font-extrabold tracking-tight sm:text-1xl">
+                  Tasks
+                </h3>
+                <div className="mt-12 lg:mt-4">
+            <dl className="space-y-10 sm:space-y-0 sm:grid l sm:gap-x-6 sm:gap-y-10 lg:gap-x-8">
                 {tasks.map((task) => (
                   <div key={task._id} className="relative">
                     <dt>
@@ -68,6 +72,9 @@ const EventPage = ({ event, tasks, donations }) => {
                     </dd> */}
                   </div>
                 ))}
+                 </dl>
+                 </div>
+              </div>
                 <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
                 <h3 className="text-2xl text-gray-900 font-extrabold tracking-tight sm:text-1xl">
                 Contributors:
@@ -82,14 +89,11 @@ const EventPage = ({ event, tasks, donations }) => {
                         aria-hidden="true"
                       />
                       <p className="ml-9 text-lg leading-6 font-medium text-gray-900">
-                      Time donated: {donation.donationHours} hrs
+                      Time donated: {donation.donationHours} hrs by a local volunteer
+                      {/* {donation.userId} */}
                       </p>
                     </dt>
-                    <dd className="mt-2 ml-9 text-base text-gray-500">
-                      Contributor: {donation.userId}
-                    </dd>
-                  
-                  </div>
+                    </div>
                 ))}
                   </dl>
                 </div>
@@ -110,14 +114,17 @@ const EventPage = ({ event, tasks, donations }) => {
                 mapLong={event.long}
                 mapLat={event.lat}
               />
-              {/* <div>  
+               {/* {event.createdBy === session?.user.email ?
+             (         <div>  
               <Link href="/events/[id]/edit" as={`/events/${event._id}/edit`}>
-              <button className="btn edit">Edit</button>
+              <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">Edit</button>
             </Link>
-            <button className="btn delete" onClick={handleDelete}>
+            <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" onClick={handleDelete}>
               Delete
             </button>
-            </div> */}
+            </div>
+            ) : null } */}
+     
             </div>
           </div>
         </div>

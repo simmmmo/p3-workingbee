@@ -100,7 +100,7 @@ const DonationForm = ({
     }
   };
 
-  /* Makes sure donation info is filled for donation name, owner name, species, and image url*/
+
   const formValidate = () => {
     let err = {};
     return err;
@@ -109,15 +109,7 @@ const DonationForm = ({
   return (
     <>
       <Form id={formId} onSubmit={handleSubmit}>
-        {/* <Input 
-                type="text" 
-                name="taskId" 
-                label="Task Id" 
-                onChange={handleChange} 
-                value={form.taskId} 
-                width="sm:col-span-6"
-              />
-              */}
+
         <Select
           type="text"
           name="taskId"
@@ -175,7 +167,7 @@ const DonationForm = ({
         <div>
           <button
             type="submit"
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-amber-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-amber-500 hover:bg-amber-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Get Involved
           </button>

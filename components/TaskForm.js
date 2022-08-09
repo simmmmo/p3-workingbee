@@ -93,7 +93,6 @@ const TaskForm = ({ eventId, formId, taskForm, forNewTask = true }) => {
     }
   };
 
-  /* Makes sure task info is filled for task name, owner name, species, and image url*/
   const formValidate = () => {
     let err = {};
     if (!form.taskTitle) err.taskTitle = "Title is required";
@@ -168,7 +167,7 @@ const TaskForm = ({ eventId, formId, taskForm, forNewTask = true }) => {
             </button>
             <button
               type="submit"
-              className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-amber-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-amber-500 hover:bg-amber-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Save
             </button>
