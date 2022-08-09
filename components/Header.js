@@ -40,27 +40,11 @@ export default function Header() {
           </div>
           <div className="ml-10 space-x-4">
           <div className="inline-block bg-amber-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-white hover:text-gray-900">
-
              <Link href="/create" as={`/create`} >
               Create an event
           </Link>
           </div>
             <LoginBtn />
-            {/* <Link href="/signin" as={`/signin`} className="inline-block bg-indigo-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75">
-              <>Sign in</>
-          </Link> */}
-            {/* <Link
-              href="/join"
-              as={`/join`}
-              className="inline-block bg-indigo-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75"
-            > Join
-            </Link> */}
-            {/* <a
-              href="/join"
-              className="inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-amber-500 hover:bg-indigo-50"
-            >
-              Join
-            </a> */}
           </div>
         </div>
         <div className="py-4 flex flex-wrap justify-center space-x-6 lg:hidden">

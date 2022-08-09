@@ -1,32 +1,3 @@
-import { useEffect, useRef } from "react";
-import Image from "next/image";
-import taskData from "../../data/taskData";
-import { CheckIcon } from "@heroicons/react/outline";
-
-// const tasks = [
-//   {
-//     title: 'Digging Veggie Patch',
-//     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non sagittis nulla, eu luctus augue. Cras enim metus, cursus et mauris id, ultrices sodales sapien. Donec viverra enim et rhoncus feugiat. Duis non rhoncus ante. Ut nulla lectus, tristique ut metus id, feugiat gravida ex. Integer a dui a metus sollicitudin mattis. Aenean placerat, nisl vel volutpat fermentum, tellus odio suscipit est, vel imperdiet diam est non turpis.',
-//     goalHours: 6,
-//     donationed: 2,
-//     contributors: 2,
-//   },
-//   {
-//     title: 'Painting School Front Gate',
-//     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non sagittis nulla, eu luctus augue. Cras enim metus, cursus et mauris id, ultrices sodales sapien. Donec viverra enim et rhoncus feugiat. Duis non rhoncus ante. Ut nulla lectus, tristique ut metus id, feugiat gravida ex. Integer a dui a metus sollicitudin mattis. Aenean placerat, nisl vel volutpat fermentum, tellus odio suscipit est, vel imperdiet diam est non turpis.',
-//     goalHours: 3,
-//     donationed: 1,
-//     contributors: 1,
-//   },
-//   {
-//     title: 'Repair Fence',
-//     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non sagittis nulla, eu luctus augue. Cras enim metus, cursus et mauris id, ultrices sodales sapien. Donec viverra enim et rhoncus feugiat. Duis non rhoncus ante. Ut nulla lectus, tristique ut metus id, feugiat gravida ex. Integer a dui a metus sollicitudin mattis. Aenean placerat, nisl vel volutpat fermentum, tellus odio suscipit est, vel imperdiet diam est non turpis.',
-//     goalHours: 10,
-//     donationed: 4,
-//     contributors: 4,
-//   },
-// ]
-
 export default function EventCard({
   title,
   subTitle,
@@ -107,16 +78,7 @@ export default function EventCard({
                   <p className="text-base leading-7">{description}</p>
                 </div>
               </div>
-              <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
-                <h3 className="text-2xl text-gray-900 font-extrabold tracking-tight sm:text-1xl">
-                  Tasks
-                </h3>
-                <div className="mt-12 lg:mt-4">
-                  <dl className="space-y-10 sm:space-y-0 sm:grid l sm:gap-x-6 sm:gap-y-10 lg:gap-x-8">
-                    {children}
-                  </dl>
-                </div>
-              </div>
+              {children}
             </div>
           </div>
         </div>
