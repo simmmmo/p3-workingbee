@@ -3,11 +3,9 @@ import LoginBtn from "./LoginBtn";
 
 const navigation = [
   { name: "Home", href: "/" },
-  { name: "Explore", href: "#" },
+  { name: "Explore", href: "/explore" },
   { name: "Create", href: "/create" },
   { name: "About", href: "/about" },
-  // { name: 'Event Single', href: 'event' },
-  // { name: 'Add', href: 'new' },
 ];
 
 export default function Header() {

@@ -79,15 +79,15 @@ export default function Search({
   width,
   ref,
 }) {
-  const [query, setQuery] = useState("");
-  const autoCompleteRef = useRef(null);
+  // const [query, setQuery] = useState("");
+  // const autoCompleteRef = useRef(null);
 
-  useEffect(() => {
-    loadScript(
-      `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_API_KEY}&libraries=places`,
-      () => handleScriptLoad(setQuery, autoCompleteRef)
-    );
-  }, []);
+  // useEffect(() => {
+  //   loadScript(
+  //     `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_API_KEY}&libraries=places`,
+  //     () => handleScriptLoad(setQuery, autoCompleteRef)
+  //   );
+  // }, []);
 
   return (
     <div className={width}>

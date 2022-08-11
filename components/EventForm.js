@@ -369,6 +369,7 @@ export default function EventForm({ createdBy, formId, eventForm, forNewEvent = 
             onChange={handleChange}
             value={form.eventImage}
             width="sm:col-span-6"
+            placeholder='Please add URL of your hosted image' 
           />
           {/* <UploadImage 
           name="eventImage" 
