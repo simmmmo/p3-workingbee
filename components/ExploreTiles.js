@@ -1,34 +1,47 @@
-import dbConnect from "../lib/dbConnect";
-// import Event from '../models/Event';
-import Hero from "../components/Hero";
-import HomeList from "../components/HomeList";
-import ClientOnly from "../components/ClientOnly";
-import HomeTiles from "../components/HomeTiles";
-import Link from "next/link";
-import { client } from "./_app";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery, gql } from "@apollo/client";
 import { CalendarIcon, LocationMarkerIcon, ClockIcon } from '@heroicons/react/outline'
 
-const pageContent = {
-  page: "Get Involved",
-  title: "Latest Community Events",
-  intro:
-    "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa libero labore natus atque, ducimus sed.",
-};
+const EXPLORE_QUERY = gql`
+  query GetEvents {
+    getEvents {
+      _id
+      title
+      subTitle
+      organisationName
+      category
+      date
+      startTime
+      endTime
+      eventImage
+      locationName
+      suburb
+      state
+      postcode
+      description
+      createdBy
+    }
+  }
+`;
+
+export default function ExploreTiles() {
+
+  const { data, loading, error } = useQuery(EXPLORE_QUERY);
 
 
-const Index = ({ events }) => {
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
+
+  if (error) {
+    console.error(error);
+    return null;
+  }
+
+  const events = data.getEvents;
 
   return (
     <>
-      <Hero />
-      <ClientOnly>
-          <HomeList pageContent={pageContent}>
-            <HomeTiles />
-          </HomeList>
-        </ClientOnly>
-      {/* <EventList>
-      {events.map((event) => (
+    {events.map((event) => (
       <div
         key={event._id}
         className="flex flex-col rounded-lg shadow-lg overflow-hidden"
@@ -83,45 +96,6 @@ const Index = ({ events }) => {
         </a>
       </div>
     ))}
-      </EventList> */}
-    </>
+</>
   );
-};
-
-export async function getServerSideProps() {
-  await dbConnect();
-
-
-  const { data } = await client.query({
-    query: gql`
-      query GetEvents {
-        getEvents {
-          _id
-          title
-          subTitle
-          organisationName
-          category
-          date
-          startTime
-          endTime
-          eventImage
-          locationName
-          state
-          suburb
-          postcode
-          description
-          createdBy
-        }
-      }
-    `,
-  }
-  );
-
-  const events = data?.getEvents || [];
-
-  // console.log({ events });
-
-  return { props: { events: events } };
 }
-
-export default Index;
