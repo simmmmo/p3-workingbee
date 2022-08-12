@@ -25,16 +25,10 @@ export default function AddTaskCard({ eventId }) {
                 </h3>
               </div>
               <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
-          
-             
-
+        
         {session?.user && (
             <>     
-              {/* <span>
-                <small>Signed in as</small>
-                <br />
-                <strong>{session.user.email ?? session.user.name}</strong>
-              </span> */}
+
                  <div className="mt-12 lg:mt-0">
               <TaskForm formId="add-task-form" taskForm={taskForm} />
               </div>

@@ -11,9 +11,10 @@ import { CheckIcon, EmojiHappyIcon } from "@heroicons/react/outline";
 import { client } from "../../_app";
 import { gql, useQuery } from "@apollo/client";
 import { useSession, signIn, signOut } from "next-auth/react";
+// import ClientOnly from "../components/ClientOnly";
 
 /* Allows you to view event card info and delete event card*/
-const EventPage = ({ event, tasks, donations }) => {
+const EventPage = ({ event, tasks, donations, queryArguments }) => {
   const { data: session } = useSession();
 
   return (
@@ -182,7 +183,7 @@ export async function getServerSideProps({ params }) {
     }
   `,
   });
-  console.log({ data });
+  // console.log({ data });
 
   const donationByTask = data?.GetEventById || [];
 
@@ -191,6 +192,7 @@ export async function getServerSideProps({ params }) {
       event: data.getEventById,
       tasks: data.getTasksByEventId,
       donations: data.getDonationsByEventId,
+      // queryArguments
     },
   };
 }

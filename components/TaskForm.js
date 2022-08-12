@@ -65,8 +65,7 @@ const TaskForm = ({ eventId, formId, taskForm, forNewTask = true }) => {
       if (!res.ok) {
         throw new Error(res.status);
       }
-
-      router.push("#");
+      router.push("/");
     } catch (error) {
       setMessage("Failed to add task");
     }

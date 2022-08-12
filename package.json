@@ -19,6 +19,7 @@
     "@heroicons/react": "^1.0.6",
     "@react-google-maps/api": "^2.12.1",
     "@tailwindcss/line-clamp": "^0.4.0",
+    "@tailwindcss/typography": "^0.5.4",
     "apollo-server": "^3.10.0",
     "apollo-server-micro": "^3.10.0",
     "apollo-server-nextjs": "^3.0.1",
