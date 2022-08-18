@@ -44,7 +44,7 @@ const resolvers = {
       try {
         const tasks = await Task.find({ eventId: taskEventId });
 
-        console.log({ tasks });
+        // console.log({ tasks });
 
         return tasks;
       } catch (err) {
@@ -56,7 +56,7 @@ const resolvers = {
       try {
         const donations = await Donation.find({ eventId: donationsEventId });
 
-        console.log({ donations });
+        // console.log({ donations });
 
         return donations;
       } catch (err) {
@@ -68,7 +68,7 @@ const resolvers = {
       try {
         const donations = await Donation.find({ taskId: donationsTaskId });
 
-        console.log({ donations });
+        // console.log({ donations });
 
         return donations;
       } catch (err) {
@@ -80,7 +80,7 @@ const resolvers = {
       try {
         const events = await Event.find({ createdBy: createdById });
 
-        console.log({ events });
+        // console.log({ events });
 
         return events;
       } catch (err) {
@@ -92,7 +92,7 @@ const resolvers = {
       try {
         const user = await User.findById(userId);
 
-        console.log({ user });
+        // console.log({ user });
 
         return user;
       } catch (err) {
@@ -126,7 +126,7 @@ const resolvers = {
       try {
         const users = await User.find({});
 
-        console.log({ users });
+        // console.log({ users });
 
         return users;
       } catch (err) {
@@ -138,7 +138,7 @@ const resolvers = {
       try {
         const donations = await Donation.find({});
 
-        console.log({ donations });
+        // console.log({ donations });
 
         return donations;
       } catch (err) {
@@ -162,7 +162,7 @@ const resolvers = {
       try {
         const tasks = await Task.find({});
 
-        console.log({ tasks });
+        // console.log({ tasks });
 
         return tasks;
       } catch (err) {

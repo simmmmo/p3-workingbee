@@ -11,6 +11,7 @@ import { CheckIcon, EmojiHappyIcon } from "@heroicons/react/outline";
 import { client } from "../../_app";
 import { gql, useQuery } from "@apollo/client";
 import { useSession, signIn, signOut } from "next-auth/react";
+// import TaskList from "../../../components/TaskList";
 // import ClientOnly from "../components/ClientOnly";
 
 /* Allows you to view event card info and delete event card*/
@@ -76,6 +77,7 @@ const EventPage = ({ event, tasks, donations, queryArguments }) => {
                  </dl>
                  </div>
               </div>
+              {/* <TaskList queryArguments={queryArguments}></TaskList> */}
                 <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
                 <h3 className="text-2xl text-gray-900 font-extrabold tracking-tight sm:text-1xl">
                 Contributors:
@@ -182,6 +184,7 @@ export async function getServerSideProps({ params }) {
       }
     }
   `,
+  fetchPolicy: 'no-cache',
   });
   // console.log({ data });
 
@@ -192,7 +195,7 @@ export async function getServerSideProps({ params }) {
       event: data.getEventById,
       tasks: data.getTasksByEventId,
       donations: data.getDonationsByEventId,
-      // queryArguments
+      queryArguments: queryArguments
     },
   };
 }

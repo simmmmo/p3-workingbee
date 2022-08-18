@@ -15,7 +15,7 @@ const EditEvent = () => {
     fetcher
   );
 
-  console.log({ event });
+  // console.log({ event });
 
   if (error) return <p>Failed to load</p>;
   if (!event) return <p>Loading...</p>;
