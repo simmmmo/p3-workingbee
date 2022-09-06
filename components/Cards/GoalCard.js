@@ -5,7 +5,7 @@ import Form from "../Form/Form";
 import DonationForm from "../DonationForm";
 import { useSession, signIn, signOut } from "next-auth/react";
 
-export default function GoalCard({ taskData, eventId, userId }) {
+export default function GoalCard({ taskData, eventId, userId, eventPercentage }) {
   const { data: session } = useSession();
 
   const donationForm = {
@@ -24,7 +24,7 @@ export default function GoalCard({ taskData, eventId, userId }) {
               Goal Progress
             </dt>
             <dd className="order-1 text-5xl font-extrabold text-amber-500">
-              100%
+              {eventPercentage}%
             </dd>
           </div>
           <div className="p-6">
