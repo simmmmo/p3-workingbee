@@ -16,7 +16,24 @@ import { useSession, signIn, signOut } from "next-auth/react";
 
 /* Allows you to view event card info and delete event card*/
 const EventPage = ({ event, tasks, donations, queryArguments }) => {
+
   const { data: session } = useSession();
+
+// this will create an array of all donations hours, i.e. [3, 3, 1]
+const donationHoursArray = donations.map((donation) => donation.donationHours);
+const taskHoursArray = tasks.map((task) => task.taskGoalHours);
+// console.log(donationHoursArray)
+// console.log(taskHoursArray)
+// we will pass this function into the reduce function
+function addHours(acc, value) {
+  return acc + value
+};
+
+// this will give us the sum of the donation hours array
+const sumOfDonationHours = donationHoursArray.reduce(addHours, 0);
+const sumOfTaskHours = taskHoursArray.reduce(addHours, 0);
+
+const eventPercentage = Math.round((100 * sumOfDonationHours) / sumOfTaskHours);
 
   return (
     <div key={event._id} className="min-h-full">
@@ -44,10 +61,13 @@ const EventPage = ({ event, tasks, donations, queryArguments }) => {
                 postcode={event.postcode}
               >
          <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
-                <h3 className="text-2xl text-gray-900 font-extrabold tracking-tight sm:text-1xl">
-                  Tasks
-                </h3>
-                <div className="mt-12 lg:mt-4">
+              <h3 className="text-2xl text-gray-900 font-extrabold tracking-tight sm:text-1xl">
+                Tasks
+              </h3>
+              <p>{sumOfDonationHours}</p>
+              <p>{sumOfTaskHours}</p>
+              <p>{eventPercentage}%</p>
+          <div className="mt-12 lg:mt-4">
             <dl className="space-y-10 sm:space-y-0 sm:grid l sm:gap-x-6 sm:gap-y-10 lg:gap-x-8">
                 {tasks.map((task) => (
                   <div key={task._id} className="relative">
@@ -72,21 +92,21 @@ const EventPage = ({ event, tasks, donations, queryArguments }) => {
                     {/* <dd className="mt-2 ml-9 text-base text-gray-500">
                       Contributors:
                     </dd> */}
-                  </div>
-                ))}
+                    </div>
+                  ))}
                  </dl>
-                 </div>
+                </div>
               </div>
               {/* <TaskList queryArguments={queryArguments}></TaskList> */}
                 <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
-                <h3 className="text-2xl text-gray-900 font-extrabold tracking-tight sm:text-1xl">
-                Contributors:
-                </h3>
-                <div className="mt-12 lg:mt-4">
+                  <h3 className="text-2xl text-gray-900 font-extrabold tracking-tight sm:text-1xl">
+                  Contributors:
+                  </h3>
+                  <div className="mt-12 lg:mt-4">
                   <dl className="space-y-10 sm:space-y-0 sm:grid l sm:gap-x-6 sm:gap-y-10 lg:gap-x-8">
                   {donations.map((donation) => (
                   <div key={donation._id} className="relative">
-                     <dt>
+                    <dt>
                       <EmojiHappyIcon
                         className="absolute h-6 w-6 text-green-600"
                         aria-hidden="true"
@@ -97,19 +117,17 @@ const EventPage = ({ event, tasks, donations, queryArguments }) => {
                       </p>
                     </dt>
                     </div>
-                ))}
+                  ))}
                   </dl>
                 </div>
               </div>
-               
               </EventCard>
               {event.createdBy === session?.user.email ?
-             ( <AddTaskCard eventId={event._id} />) : null }
-             
+             (<AddTaskCard eventId={event._id} />) : null }
             </div>
             {/* Right column */}
             <div className="grid grid-cols-1 gap-4">
-              <GoalCard taskData={tasks} eventId={event._id} userId={session?.user.email}/>
+              <GoalCard taskData={tasks} eventId={event._id} userId={session?.user.email} eventPercentage={eventPercentage}/>
               <LocationCard
                 name={event.locationName}
                 address={event.address}
@@ -118,16 +136,15 @@ const EventPage = ({ event, tasks, donations, queryArguments }) => {
                 mapLat={event.lat}
               />
                {/* {event.createdBy === session?.user.email ?
-             (         <div>  
+              (<div>  
               <Link href="/events/[id]/edit" as={`/events/${event._id}/edit`}>
               <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">Edit</button>
-            </Link>
-            <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" onClick={handleDelete}>
+              </Link>
+              <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" onClick={handleDelete}>
               Delete
-            </button>
-            </div>
-            ) : null } */}
-     
+              </button>
+              </div>
+              ) : null } */}
             </div>
           </div>
         </div>
@@ -186,9 +203,33 @@ export async function getServerSideProps({ params }) {
   `,
   fetchPolicy: 'no-cache',
   });
-  // console.log({ data });
 
-  const donationByTask = data?.GetEventById || [];
+
+  const donationByTask = data.getTasksByEventId;
+
+  // const donationByTask = data.getTasksByEventId.map((doc) => {
+  //   const donate = doc.toObject()
+  //   donate._id = donate._id.toString()
+  //   return donate
+  // });
+
+  // const queryTasks = `"${params.id}"`;
+
+  // const { taskdata } = await client.query({
+  //   query: gql`
+  //   {
+  //     getDonationsByTaskId(donationsTaskId: ${queryTasks}) {
+  //       _id
+  //       taskId
+  //       userId
+  //       donationHours
+  //       eventId
+  //     }
+  //   }
+  // `,
+  // fetchPolicy: 'no-cache',
+  // });
+  // console.log({ donationByTask });
 
   return {
     props: {
