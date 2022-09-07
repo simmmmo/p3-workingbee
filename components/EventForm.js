@@ -102,7 +102,7 @@ export default function EventForm({ createdBy, formId, eventForm, forNewEvent = 
         // },
       };
 
-      console.log({ payload });
+      // console.log({ payload });
 
       const res = await fetch(`/api/events/${id}`, {
         method: "PUT",
@@ -139,7 +139,7 @@ export default function EventForm({ createdBy, formId, eventForm, forNewEvent = 
         // },
       };
 
-      console.log({ payload });
+      // console.log({ payload });
 
       const res = await fetch("/api/events", {
         method: "POST",

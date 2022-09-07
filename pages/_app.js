@@ -29,9 +29,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             <title>WorkingBee | Give time to a cause</title>
           </Head>
           <Header />
-
           <Component {...pageProps} />
-
           <Footer />
         </SessionProvider>
       </ApolloProvider>
