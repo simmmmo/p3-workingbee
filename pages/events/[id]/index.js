@@ -11,8 +11,6 @@ import { CheckIcon, EmojiHappyIcon } from "@heroicons/react/outline";
 import { client } from "../../_app";
 import { gql, useQuery } from "@apollo/client";
 import { useSession, signIn, signOut } from "next-auth/react";
-// import TaskList from "../../../components/TaskList";
-// import ClientOnly from "../components/ClientOnly";
 
 /* Allows you to view event card info and delete event card*/
 const EventPage = ({ event, tasks, donations, queryArguments }) => {
@@ -20,10 +18,25 @@ const EventPage = ({ event, tasks, donations, queryArguments }) => {
   const { data: session } = useSession();
 
 // this will create an array of all donations hours, i.e. [3, 3, 1]
-const donationHoursArray = donations.map((donation) => donation.donationHours);
-const taskHoursArray = tasks.map((task) => task.taskGoalHours);
-// console.log(donationHoursArray)
-// console.log(taskHoursArray)
+// const donationHoursArray = donations.map((donation) => donation.donationHours);
+
+const donationHoursArray = donations.map((donation) => {
+  if (donation?.donationHours) {
+    return donation.donationHours  
+  }
+  return 0
+});
+console.log({donationHoursArray})
+// const taskHoursArray = tasks.map((task) => task.taskGoalHours);
+
+const taskHoursArray = tasks.map((task) => {
+  if (task?.taskGoalHours) {
+    return task.taskGoalHours  
+  }
+  return 0
+});
+console.log({taskHoursArray})
+
 // we will pass this function into the reduce function
 function addHours(acc, value) {
   return acc + value
@@ -31,9 +44,11 @@ function addHours(acc, value) {
 
 // this will give us the sum of the donation hours array
 const sumOfDonationHours = donationHoursArray.reduce(addHours, 0);
+console.log({sumOfDonationHours})
 const sumOfTaskHours = taskHoursArray.reduce(addHours, 0);
-
+console.log({sumOfTaskHours})
 const eventPercentage = Math.round((100 * sumOfDonationHours) / sumOfTaskHours);
+console.log({eventPercentage})
 
   return (
     <div key={event._id} className="min-h-full">
@@ -41,8 +56,6 @@ const eventPercentage = Math.round((100 * sumOfDonationHours) / sumOfTaskHours);
 
       <main className="mt-10 pb-8">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-          {/* <h1 className="sr-only">Page title</h1> */}
-
           <div className="grid grid-cols-1 gap-4 items-start lg:grid-cols-3 lg:gap-8">
             {/* Left column */}
             <div className="grid grid-cols-1 gap-4 lg:col-span-2">
@@ -64,36 +77,42 @@ const eventPercentage = Math.round((100 * sumOfDonationHours) / sumOfTaskHours);
               <h3 className="text-2xl text-gray-900 font-extrabold tracking-tight sm:text-1xl">
                 Tasks
               </h3>
-              <p>{sumOfDonationHours}</p>
-              <p>{sumOfTaskHours}</p>
-              <p>{eventPercentage}%</p>
           <div className="mt-12 lg:mt-4">
             <dl className="space-y-10 sm:space-y-0 sm:grid l sm:gap-x-6 sm:gap-y-10 lg:gap-x-8">
-                {tasks.map((task) => (
-                  <div key={task._id} className="relative">
-                    <dt>
-                      <CheckIcon
-                        className="absolute h-6 w-6 text-gray-300"
-                        aria-hidden="true"
-                      />
-                      <p className="ml-9 text-lg leading-6 font-medium text-gray-900">
-                        {task.taskTitle}
-                      </p>
-                    </dt>
-                    <dd className="mt-2 ml-9 text-base text-gray-500">
-                      {task.taskDescription}
-                    </dd>
-                    <dd className="mt-2 ml-9 text-base text-gray-500">
-                      Estimated time needed: {task.taskGoalHours}hrs
-                    </dd>
-                    <dd className="mt-2 ml-9 text-base text-gray-500">
-                      Time donated: hrs
-                    </dd>
-                    {/* <dd className="mt-2 ml-9 text-base text-gray-500">
-                      Contributors:
-                    </dd> */}
-                    </div>
-                  ))}
+                {tasks.map((task) => {
+                  const taskDonationHours = donations.map((donation) => {
+                    if (donation.taskId === task._id) {
+                      return donation.donationHours
+                    }
+                    return 0
+                  })
+                const sumOfTaskDonationHours = taskDonationHours.reduce(addHours, 0);
+                console.log({taskDonationHours})
+                  return (<div key={task._id} className="relative">
+                  <dt>
+                    <CheckIcon
+                      className="absolute h-6 w-6 text-gray-300"
+                      aria-hidden="true"
+                    />
+                    <p className="ml-9 text-lg leading-6 font-medium text-gray-900">
+                      {task.taskTitle}
+                    </p>
+                  </dt>
+                  <dd className="mt-2 ml-9 text-base text-gray-500">
+                    {task.taskDescription}
+                  </dd>
+                  <dd className="mt-2 ml-9 text-base text-gray-500">
+                    Estimated time needed: {task.taskGoalHours}hrs
+                  </dd>
+                  <dd className="mt-2 ml-9 text-base text-gray-500">
+                    Time donated: {sumOfTaskDonationHours}hrs
+                  </dd>
+                  {/* <dd className="mt-2 ml-9 text-base text-gray-500">
+                    Contributors:
+                  </dd> */}
+                  </div> )
+                } 
+                )}
                  </dl>
                 </div>
               </div>
@@ -127,7 +146,7 @@ const eventPercentage = Math.round((100 * sumOfDonationHours) / sumOfTaskHours);
             </div>
             {/* Right column */}
             <div className="grid grid-cols-1 gap-4">
-              <GoalCard taskData={tasks} eventId={event._id} userId={session?.user.email} eventPercentage={eventPercentage}/>
+              <GoalCard taskData={tasks} donationData={donations} eventId={event._id} userId={session?.user.email} eventPercentage={eventPercentage}/>
               <LocationCard
                 name={event.locationName}
                 address={event.address}
@@ -203,34 +222,7 @@ export async function getServerSideProps({ params }) {
   `,
   fetchPolicy: 'no-cache',
   });
-
-
-  const donationByTask = data.getTasksByEventId;
-
-  // const donationByTask = data.getTasksByEventId.map((doc) => {
-  //   const donate = doc.toObject()
-  //   donate._id = donate._id.toString()
-  //   return donate
-  // });
-
-  // const queryTasks = `"${params.id}"`;
-
-  // const { taskdata } = await client.query({
-  //   query: gql`
-  //   {
-  //     getDonationsByTaskId(donationsTaskId: ${queryTasks}) {
-  //       _id
-  //       taskId
-  //       userId
-  //       donationHours
-  //       eventId
-  //     }
-  //   }
-  // `,
-  // fetchPolicy: 'no-cache',
-  // });
-  // console.log({ donationByTask });
-
+  
   return {
     props: {
       event: data.getEventById,
