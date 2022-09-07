@@ -11,7 +11,7 @@
     "start": "next start -p $PORT",
     "lint": "next lint"
   },
-  "dependencies": {
+ "dependencies": {
     "@apollo/client": "^3.6.9",
     "@apollo/sandbox": "^0.2.1",
     "@auth0/nextjs-auth0": "^1.9.1",
